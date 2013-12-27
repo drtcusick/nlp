@@ -1,0 +1,14 @@
+package com.asynchrony.nlp.classifier;
+
+import java.io.IOException;
+
+import edu.stanford.nlp.classify.ColumnDataClassifier;
+
+public class PhraseClassifier {
+	public void runClassifier() throws IOException {
+		ColumnDataClassifier classifer;
+		
+		String[] args;
+		ColumnDataClassifier.main(args);
+	}
+}

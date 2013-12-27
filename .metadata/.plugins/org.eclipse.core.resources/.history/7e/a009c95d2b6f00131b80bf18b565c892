@@ -1,0 +1,42 @@
+package com.asynchrony.nlp.classifier;
+
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+import java.io.Serializable;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.regex.Pattern;
+
+import edu.stanford.nlp.classify.Classifier;
+import edu.stanford.nlp.classify.GeneralDataset;
+import edu.stanford.nlp.classify.LinearClassifier;
+import edu.stanford.nlp.classify.LogPrior;
+import edu.stanford.nlp.classify.LogisticClassifier;
+import edu.stanford.nlp.classify.RVFDataset;
+import edu.stanford.nlp.io.IOUtils;
+import edu.stanford.nlp.stats.ClassicCounter;
+import edu.stanford.nlp.stats.TwoDimensionalCounter;
+import edu.stanford.nlp.util.Pair;
+import edu.stanford.nlp.util.StringUtils;
+
+
+
+
+
+public class ColumnDataClassifierWrap
+{
+
+
+  public ColumnDataClassifierWrap(Properties props)
+  {
+  }
+
+}
+
+

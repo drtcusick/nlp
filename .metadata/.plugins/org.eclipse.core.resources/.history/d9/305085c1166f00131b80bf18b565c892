@@ -1,0 +1,5 @@
+package com.asynchrony.nlp.classifier;
+
+public class SentenceClassifierTest {
+
+}

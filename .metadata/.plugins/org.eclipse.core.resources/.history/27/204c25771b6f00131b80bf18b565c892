@@ -1,0 +1,10 @@
+package com.asynchrony.nlp.classifier;
+
+public class SentenceClassifier {
+
+	public void runClassifier() {
+		edu.stanford.nlp.classify.ColumnDataClassifier classifer;
+		
+	}
+
+}

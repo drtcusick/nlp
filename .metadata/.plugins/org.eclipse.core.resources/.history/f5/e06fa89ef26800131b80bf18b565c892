@@ -1,0 +1,73 @@
+package com.asynchrony.nlp.sentiment;
+
+import java.io.BufferedReader;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.List;
+import java.util.Properties;
+
+import edu.stanford.nlp.io.IOUtils;
+import edu.stanford.nlp.ling.CoreAnnotations;
+import edu.stanford.nlp.pipeline.Annotation;
+import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import edu.stanford.nlp.rnn.RNNCoreAnnotations;
+import edu.stanford.nlp.sentiment.SentimentCoreAnnotations;
+import edu.stanford.nlp.sentiment.SentimentUtils;
+import edu.stanford.nlp.trees.Tree;
+import edu.stanford.nlp.util.CoreMap;
+
+public class CustomSentimentPipeline {
+
+	private static final NumberFormat NF = new DecimalFormat("0.0000");
+
+	static enum Output {
+		PENNTREES, VECTORS, ROOT;
+	}
+
+	public void sentimentPipelineMainCode(String sentenceToEvaluate)
+			throws Exception {
+		String parserModel = null;
+		String sentimentModel = null;
+
+		boolean stdin = false;
+
+		Output output = Output.ROOT;
+
+		int argIndex = 0;
+
+		// removing the following options:
+		// sentimentModel, parserModel, file, stdin, output
+
+		Properties props = new Properties();
+		props.setProperty("annotators", "tokenize, ssplit, parse, sentiment");
+		if (sentimentModel != null) {
+			props.setProperty("sentiment.model", sentimentModel);
+		}
+		if (parserModel != null) {
+			props.setProperty("parse.model", parserModel);
+		}
+
+		if (stdin) {
+			props.setProperty("ssplit.eolonly", "true");
+		}
+		StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
+
+		Annotation annotation = new Annotation(sentenceToEvaluate);
+		pipeline.annotate(annotation);
+
+		for (CoreMap sentence : (List<CoreMap>) annotation
+				.get(CoreAnnotations.SentencesAnnotation.class)) {
+			Tree tree = (Tree) sentence
+					.get(SentimentCoreAnnotations.AnnotatedTree.class);
+			System.out.println(sentence);
+
+			outputTree(tree);
+		}
+	}
+
+	private void outputTree(Tree tree) {
+		int sentiment = RNNCoreAnnotations.getPredictedClass(tree);
+		System.out.println("  " + SentimentUtils.sentimentString(sentiment));
+	}
+
+}

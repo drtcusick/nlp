@@ -1,0 +1,23 @@
+package com.asynchrony.nlp.sentiment;
+
+import org.junit.Before;
+import org.junit.Test;
+
+public class FirstTest {
+
+	private CustomSentimentPipeline testObject; 
+	
+	@Before
+	public void setUp()
+	{
+		testObject = new CustomSentimentPipeline();
+	}
+	
+	
+	@Test
+	public void testSentimentPipelineMainCode() throws Exception {
+		String testSentence = "Arun did not diagnose the problem.";
+		testObject.sentimentPipelineMainCode(testSentence);
+	}
+	
+}

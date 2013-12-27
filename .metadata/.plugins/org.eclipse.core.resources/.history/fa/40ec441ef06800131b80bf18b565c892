@@ -1,0 +1,5 @@
+package com.asynchrony.nlp.sentiment;
+
+public class Sentiment {
+
+}

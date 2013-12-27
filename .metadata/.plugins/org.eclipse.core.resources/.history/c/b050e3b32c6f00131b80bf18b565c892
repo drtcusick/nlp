@@ -1,0 +1,24 @@
+package com.asynchrony.nlp.classifier;
+
+import org.junit.Before;
+import org.junit.Test;
+
+
+public class ColumnDataClassifierWrapTest {
+	
+	private ColumnDataClassifierWrap testObject;
+	
+	
+	@Before
+	public void setUp()
+	{
+		testObject = new ColumnDataClassifierWrap();
+	}
+	
+	
+	@Test
+	public void testRunClassifier()
+	{
+		testObject.run();
+	}
+}

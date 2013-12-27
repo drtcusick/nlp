@@ -1,0 +1,43 @@
+package com.asynchrony.nlp.sentiment;
+
+import java.io.BufferedReader;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.List;
+import java.util.Properties;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import edu.stanford.nlp.io.IOUtils;
+import edu.stanford.nlp.ling.CoreAnnotations;
+import edu.stanford.nlp.pipeline.Annotation;
+import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import edu.stanford.nlp.sentiment.SentimentCoreAnnotations;
+import edu.stanford.nlp.sentiment.SentimentPipeline;
+import edu.stanford.nlp.trees.Tree;
+import edu.stanford.nlp.util.CoreMap;
+
+public class FirstTest {
+
+	private SentimentPipeline sentimentPipeline;
+	
+	private Sentiment testObject; 
+	
+	@Before
+	public void setUp()
+	{
+		sentimentPipeline = new SentimentPipeline();
+		testObject = new Sentiment();
+	}
+	
+	
+	@Test
+	public void testSentimentPipelineMainCode() throws Exception {
+		String args[] = {""};
+		testObject.sentimentPipelineMainCode(args);
+	}
+	
+	
+
+}

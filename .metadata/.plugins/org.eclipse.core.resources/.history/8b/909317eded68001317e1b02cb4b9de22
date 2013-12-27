@@ -1,0 +1,27 @@
+package com.asynchrony.nlp.sentiment;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import edu.stanford.nlp.sentiment.SentimentPipeline;
+
+public class FirstTest {
+	
+	private SentimentPipeline sentimentPipeline;
+	
+	@Before
+	public void setUp()
+	{
+		sentimentPipeline = SentimentPipeline.
+	}
+	
+	
+	@Test
+	public void testFirst()
+	{
+		String testSentence = "Steve was very alert at the meeting.";
+		
+		 
+	}
+
+}

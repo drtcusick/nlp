@@ -1,0 +1,27 @@
+package com.asynchrony.nlp.classifier;
+
+import java.util.Properties;
+
+import edu.stanford.nlp.classify.ColumnDataClassifier;
+import edu.stanford.nlp.util.StringUtils;
+
+
+
+
+
+public class ColumnDataClassifierWrap
+{
+
+
+  public ColumnDataClassifierWrap(Properties props)
+  {
+  }
+  
+  public void run()
+  {
+	  ColumnDataClassifier.main(args);
+  }
+
+}
+
+

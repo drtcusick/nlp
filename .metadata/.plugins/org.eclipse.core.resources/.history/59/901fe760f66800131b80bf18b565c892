@@ -1,0 +1,98 @@
+package com.asynchrony.nlp.sentiment;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.List;
+import java.util.Properties;
+
+import edu.stanford.nlp.ling.CoreAnnotations;
+import edu.stanford.nlp.ling.CoreLabel;
+import edu.stanford.nlp.ling.Label;
+import edu.stanford.nlp.pipeline.Annotation;
+import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import edu.stanford.nlp.rnn.RNNCoreAnnotations;
+import edu.stanford.nlp.sentiment.SentimentCoreAnnotations;
+import edu.stanford.nlp.sentiment.SentimentUtils;
+import edu.stanford.nlp.trees.Tree;
+import edu.stanford.nlp.util.CoreMap;
+
+public class CustomSentimentPipeline {
+
+	private static final NumberFormat NF = new DecimalFormat("0.0000");
+
+	static enum Output {
+		PENNTREES, VECTORS, ROOT;
+	}
+
+	public void sentimentPipelineMainCode(String sentenceToEvaluate)
+			throws Exception {
+
+		Output output = Output.ROOT;
+
+		int argIndex = 0;
+
+		// removing the following options:
+		// sentimentModel, parserModel, file, stdin, output
+
+		Properties props = new Properties();
+		props.setProperty("annotators", "tokenize, ssplit, parse, sentiment");
+
+		StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
+
+		Annotation annotation = new Annotation(sentenceToEvaluate);
+		pipeline.annotate(annotation);
+
+		for (CoreMap sentence : (List<CoreMap>) annotation
+				.get(CoreAnnotations.SentencesAnnotation.class)) {
+			Tree tree = (Tree) sentence
+					.get(SentimentCoreAnnotations.AnnotatedTree.class);
+			System.out.println(sentence);
+
+			outputTree(tree);
+		}
+	}
+
+	private void outputTree(Tree tree) {
+		// int sentiment = RNNCoreAnnotations.getPredictedClass(tree);
+		// System.out.println("  " + SentimentUtils.sentimentString(sentiment));
+
+//		Tree copy = tree.deepCopy();
+//		setSentimentLabels(copy);
+//		System.out.println(copy);
+
+	      Tree copy = tree.deepCopy();
+	      setIndexLabels(copy, 0);
+	      System.out.println(copy);
+	      outputTreeVectors(tree, 0);
+		
+	}
+
+	private void outputTreeVectors(Tree tree, int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void setIndexLabels(Tree copy, int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void setSentimentLabels(Tree tree) {
+		if (tree.isLeaf()) {
+			return;
+		}
+
+		for (Tree child : tree.children()) {
+			setSentimentLabels(child);
+		}
+
+		Label label = tree.label();
+		if (!(label instanceof CoreLabel)) {
+			throw new IllegalArgumentException(
+					"Required a tree with CoreLabels");
+		}
+		CoreLabel cl = (CoreLabel) label;
+		cl.setValue(Integer.toString(RNNCoreAnnotations.getPredictedClass(tree)));
+	}
+
+}

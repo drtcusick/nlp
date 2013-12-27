@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="CustomSentimentPipelineTest" project="sentiment" tests="3" started="3" failures="0" errors="0" ignored="0">
+  <testsuite name="com.asynchrony.nlp.sentiment.CustomSentimentPipelineTest" time="2.878">
+    <testcase name="testSentimentPipelineMainCode_Neutral" classname="com.asynchrony.nlp.sentiment.CustomSentimentPipelineTest" time="2.437"/>
+    <testcase name="testSentimentPipelineMainCode_Positive" classname="com.asynchrony.nlp.sentiment.CustomSentimentPipelineTest" time="0.25"/>
+    <testcase name="testSentimentPipelineMainCode_Negative" classname="com.asynchrony.nlp.sentiment.CustomSentimentPipelineTest" time="0.191"/>
+  </testsuite>
+</testrun>

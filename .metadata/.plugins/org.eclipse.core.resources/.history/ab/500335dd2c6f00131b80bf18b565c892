@@ -1,0 +1,29 @@
+package com.asynchrony.nlp.classifier;
+
+import java.util.HashMap;
+
+import org.junit.Before;
+import org.junit.Test;
+
+
+public class ColumnDataClassifierWrapTest {
+	
+	private ColumnDataClassifierWrap testObject;
+	private HashMap<String, String> props = new HashMap<String, String>();
+	
+	
+	@Before
+	public void setUp()
+	{
+		testObject = new ColumnDataClassifierWrap(props);
+	}
+	
+	
+	@Test
+	public void testRunClassifier()
+	{
+	}
+	
+	
+	test
+}

@@ -1,0 +1,30 @@
+package com.asynchrony.nlp.sentiment;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import edu.stanford.nlp.sentiment.SentimentPipeline;
+
+public class FirstTest {
+
+	private SentimentPipeline sentimentPipeline;
+	
+	private Sentiment testObject; 
+	
+	@Before
+	public void setUp()
+	{
+		sentimentPipeline = new SentimentPipeline();
+		testObject = new Sentiment();
+	}
+	
+	
+	@Test
+	public void testSentimentPipelineMainCode() throws Exception {
+		String args[] = {""};
+		testObject.sentimentPipelineMainCode(args);
+	}
+	
+	
+
+}

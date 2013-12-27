@@ -1,0 +1,38 @@
+package com.asynchrony.nlp.classifier;
+
+import static org.junit.Assert.*;
+
+import java.util.HashMap;
+
+import org.junit.Before;
+import org.junit.Test;
+
+
+public class ColumnDataClassifierWrapTest {
+	
+	private ColumnDataClassifierWrap testObject;
+	private HashMap<String, String> props = new HashMap<String, String>();
+	
+	
+	@Before
+	public void setUp()
+	{
+		testObject = new ColumnDataClassifierWrap(props);
+	}
+	
+	
+	@Test
+	public void testRunClassifier()
+	{
+	}
+	
+	
+	@Test
+	public void testPropertiesToArgs() throws Exception {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("-last", "LastName");
+		map.put("-first", "FirstName");
+		map.put("-middle", "MiddleName");
+		testObject.propertiesToArgs(map );
+	}
+}
