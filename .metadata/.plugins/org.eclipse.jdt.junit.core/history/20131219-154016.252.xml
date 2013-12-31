@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="Rerun com.asynchrony.nlp.sentiment.FirstTest" project="sentiment" tests="1" started="1" failures="0" errors="0" ignored="0">
-  <testsuite name="com.asynchrony.nlp.sentiment.FirstTest" time="2.453">
-    <testcase name="testSentimentPipelineMainCode" classname="com.asynchrony.nlp.sentiment.FirstTest" time="2.453"/>
-  </testsuite>
-</testrun>
