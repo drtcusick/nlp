@@ -1,6 +1,7 @@
 package edu.stanford.nlp.classify;
 
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -27,6 +28,7 @@ import edu.stanford.nlp.io.IOUtils;
 import edu.stanford.nlp.io.RuntimeIOException;
 import edu.stanford.nlp.ling.Datum;
 import edu.stanford.nlp.ling.RVFDatum;
+import edu.stanford.nlp.objectbank.ObjectBank;
 import edu.stanford.nlp.process.WordShapeClassifier;
 import edu.stanford.nlp.stats.ClassicCounter;
 import edu.stanford.nlp.stats.Counter;
@@ -227,7 +229,56 @@ public class ColumnDataClassifierExt extends ColumnDataClassifier {
 		flags = setProperties(props);
 		globalFlags = flags[0];
 	}
+	
+	public String classifySentence(String expectedCategory, String sentence)
+	{
+		String result = "-1" + "\t" + "0.00";
+		if (globalFlags.printFeatures != null)
+			newFeaturePrinter(globalFlags.printFeatures, "test");
+		Counter contingency = new ClassicCounter();
+		
+		Pair testInfo = createPairFromSentence(expectedCategory, sentence);
+		
+		GeneralDataset test = (GeneralDataset) testInfo.first();
+		List lineInfos = (List) testInfo.second();
+		if (test.size != 1)
+		{
+			return "-1\tError in test size, should be one for one sentence.";
+		}
+		result = classifyOnePair(classifier, contingency, test, lineInfos, 0);
 
+		if (globalFlags.groupingColumn >= 0
+				&& globalFlags.rankingAccuracyClass != null)
+			finishRanking(contingency, bestSim);
+		if (globalFlags.printFeatures != null) {
+			cliqueWriter.close();
+			cliqueWriter = null;
+		}
+		writeResultsSummary(test.size, contingency, classifier.labels());
+		return result;
+	}
+
+	private Pair createPairFromSentence(String expectedCategory, String sentence) {
+		List lineInfos = new ArrayList();
+		GeneralDataset dataset;
+		if (globalFlags.usesRealValues)
+			dataset = new RVFDataset();
+		else
+			dataset = new Dataset();
+		int lineNo = 0;
+		
+		String line = expectedCategory + "\t" + sentence;
+		
+		lineNo++;
+		String wi[] = {expectedCategory, sentence};
+		lineInfos.add(wi);
+		Datum d = makeDatumFromLine(line, lineNo);
+		if (d != null)
+			dataset.add(d);
+		
+		return new Pair(dataset, lineInfos);
+	}
+	
 	public void testClassifier(String testFile) {
 		System.err.print("Output format: ");
 		if (globalFlags.displayedColumn >= 0)
@@ -247,72 +298,7 @@ public class ColumnDataClassifierExt extends ColumnDataClassifier {
 		GeneralDataset test = (GeneralDataset) testInfo.first();
 		List lineInfos = (List) testInfo.second();
 		for (int i = 0; i < test.size; i++) {
-			String simpleLineInfo[];
-			Datum d;
-			Distribution dist;
-			String answer;
-			label0: {
-				simpleLineInfo = (String[]) lineInfos.get(i);
-				if (globalFlags.usesRealValues)
-					d = test.getRVFDatum(i);
-				else
-					d = test.getDatum(i);
-				if (globalFlags.justify) {
-					System.err.println((new StringBuilder())
-							.append("### Test item ").append(i).toString());
-					String arr$[] = simpleLineInfo;
-					int len$ = arr$.length;
-					for (int i$ = 0; i$ < len$; i$++) {
-						String field = arr$[i$];
-						System.err.print(field);
-						System.err.print('\t');
-					}
-
-					System.err.println();
-					if (cl instanceof LinearClassifier)
-						((LinearClassifier) cl).justificationOf(d);
-					System.err.println();
-				}
-				Counter logScores;
-				if (globalFlags.usesRealValues)
-					logScores = ((RVFClassifier) ErasureUtils.uncheckedCast(cl))
-							.scoresOf((RVFDatum) d);
-				else
-					logScores = cl.scoresOf(d);
-				dist = Distribution.distributionFromLogisticCounter(logScores);
-				answer = null;
-				if (globalFlags.biasedHyperplane == null)
-					break label0;
-				List biggestKeys = new ArrayList(logScores.keySet());
-				Collections.sort(biggestKeys,
-						Counters.toComparatorDescending(logScores));
-				Iterator i$ = biggestKeys.iterator();
-				String key;
-				double prob;
-				double threshold;
-				do {
-					if (!i$.hasNext())
-						break label0;
-					key = (String) i$.next();
-					prob = dist.probabilityOf(key);
-					threshold = globalFlags.biasedHyperplane.getCount(key);
-				} while (prob <= threshold);
-				answer = key;
-			}
-			if (answer == null)
-				if (globalFlags.usesRealValues)
-					answer = (String) ((RVFClassifier) ErasureUtils
-							.uncheckedCast(cl)).classOf((RVFDatum) d);
-				else
-					answer = (String) cl.classOf(d);
-			double sim = 0.0D;
-			if (globalFlags.rankingScoreColumn >= 0)
-				try {
-					sim = Double
-							.parseDouble(simpleLineInfo[globalFlags.rankingScoreColumn]);
-				} catch (NumberFormatException nfe) {
-				}
-			writeAnswer(simpleLineInfo, answer, dist, contingency, cl, sim);
+			classifyOnePair(cl, contingency, test, lineInfos, i);
 		}
 
 		if (globalFlags.groupingColumn >= 0
@@ -323,6 +309,77 @@ public class ColumnDataClassifierExt extends ColumnDataClassifier {
 			cliqueWriter = null;
 		}
 		writeResultsSummary(test.size, contingency, cl.labels());
+	}
+
+	private String classifyOnePair(Classifier cl, Counter contingency,
+			GeneralDataset test, List lineInfos, int i) {
+		String simpleLineInfo[];
+		Datum d;
+		Distribution dist;
+		String answer;
+		label0: {
+			simpleLineInfo = (String[]) lineInfos.get(i);
+			if (globalFlags.usesRealValues)
+				d = test.getRVFDatum(i);
+			else
+				d = test.getDatum(i);
+			if (globalFlags.justify) {
+				System.err.println((new StringBuilder())
+						.append("### Test item ").append(i).toString());
+				String arr$[] = simpleLineInfo;
+				int len$ = arr$.length;
+				for (int i$ = 0; i$ < len$; i$++) {
+					String field = arr$[i$];
+					System.err.print(field);
+					System.err.print('\t');
+				}
+
+				System.err.println();
+				if (cl instanceof LinearClassifier)
+					((LinearClassifier) cl).justificationOf(d);
+				System.err.println();
+			}
+			Counter logScores;
+			if (globalFlags.usesRealValues)
+				logScores = ((RVFClassifier) ErasureUtils.uncheckedCast(cl))
+						.scoresOf((RVFDatum) d);
+			else
+				logScores = cl.scoresOf(d);
+			dist = Distribution.distributionFromLogisticCounter(logScores);
+			answer = null;
+			if (globalFlags.biasedHyperplane == null)
+				break label0;
+			List biggestKeys = new ArrayList(logScores.keySet());
+			Collections.sort(biggestKeys,
+					Counters.toComparatorDescending(logScores));
+			Iterator i$ = biggestKeys.iterator();
+			String key;
+			double prob;
+			double threshold;
+			do {
+				if (!i$.hasNext())
+					break label0;
+				key = (String) i$.next();
+				prob = dist.probabilityOf(key);
+				threshold = globalFlags.biasedHyperplane.getCount(key);
+			} while (prob <= threshold);
+			answer = key;
+		}
+		if (answer == null)
+			if (globalFlags.usesRealValues)
+				answer = (String) ((RVFClassifier) ErasureUtils
+						.uncheckedCast(cl)).classOf((RVFDatum) d);
+			else
+				answer = (String) cl.classOf(d);
+		double sim = 0.0D;
+		if (globalFlags.rankingScoreColumn >= 0)
+			try {
+				sim = Double
+						.parseDouble(simpleLineInfo[globalFlags.rankingScoreColumn]);
+			} catch (NumberFormatException nfe) {
+			}
+//		writeAnswer(simpleLineInfo, answer, dist, contingency, cl, sim);
+		return answer + "\t" + dist.probabilityOf(answer);
 	}
 
 	private void writeResultsSummary(int num, Counter contingency,
@@ -636,11 +693,6 @@ public class ColumnDataClassifierExt extends ColumnDataClassifier {
 		} catch (PatternSyntaxException pse) {
 			throw new RuntimeException(pse);
 		}
-		Set<Object> keySet = props.keySet();
-		for (Object object : keySet) {
-			System.out.println("TWC " + object + " = "
-					+ props.getProperty(object.toString()));
-		}
 		loadPath = props.getProperty("loadClassifier");
 		Flags myFlags[];
 		if (loadPath != null) {
@@ -891,10 +943,9 @@ public class ColumnDataClassifierExt extends ColumnDataClassifier {
 				}
 			} else if (key.equals("useSplitFirstLastWords"))
 				myFlags[col].useSplitFirstLastWords = Boolean.parseBoolean(val);
-			else if (key.equals("loadClassifier")) {
-				System.out.println("TWC setting loadClassifier to " + val);
+			else if (key.equals("loadClassifier")) 
 				myFlags[col].loadClassifier = val;
-			} else if (key.equals("serializeTo"))
+			else if (key.equals("serializeTo"))
 				Flags.serializeTo = val;
 			else if (key.equals("printTo"))
 				Flags.printTo = val;

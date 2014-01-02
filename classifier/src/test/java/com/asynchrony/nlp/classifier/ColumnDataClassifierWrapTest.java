@@ -25,13 +25,40 @@ public class ColumnDataClassifierWrapTest {
 		props = new HashMap<String, String>();
 	}
 	
+	@Test
+	public void testClassifySentence() throws Exception {
+		props.put("-prop", PATH + "phrases.prop");
+		testObject = new ColumnDataClassifierWrap(props);
+		assertEquals("2", testObject.classifySentence(
+				"The determination in John is incredible, he never gives up.").getCategory());
+		assertEquals("1", testObject.classifySentence(
+				"Thinking strategically, Nate exchanged team developers on an individual basis.").getCategory());
+		assertEquals("3", testObject.classifySentence(
+				"Composure was maintained by all as the bad news was delivered.").getCategory());
+		assertEquals("4", testObject.classifySentence(
+				"Visualization and planning explain the success of this project.").getCategory());
+	}
 	
 	@Test
-	public void testRunClassifier_PhrasesWithoutMain() throws IOException
+	public void testClassifySentence_categoryTextAssignedCorrectly() throws Exception {
+		props.put("-prop", PATH + "phrases.prop");
+		testObject = new ColumnDataClassifierWrap(props);
+		assertEquals(testObject.categories.get("2"), testObject.classifySentence(
+				"The determination in John is incredible, he never gives up.").getCategoryText());
+		assertEquals(testObject.categories.get("1"), testObject.classifySentence(
+				"Thinking strategically, Nate exchanged team developers on an individual basis.").getCategoryText());
+		assertEquals(testObject.categories.get("3"), testObject.classifySentence(
+				"Composure was maintained by all as the bad news was delivered.").getCategoryText());
+		assertEquals(testObject.categories.get("4"), testObject.classifySentence(
+				"Visualization and planning explain the success of this project.").getCategoryText());
+	}
+	
+	@Test
+	public void testRunClassifier_ExternalizedWithTestFile() throws IOException
 	{
 		props.put("-prop", PATH + "phrases.prop");
 		testObject = new ColumnDataClassifierWrap(props);
-		testObject.runFromExtendedClass();
+		testObject.runTestFromParameterSpecifiedFile();
 	}
 	
 	@Test
@@ -39,7 +66,7 @@ public class ColumnDataClassifierWrapTest {
 	{
 		props.put("-prop", PATH + "phrases.prop");
 		testObject = new ColumnDataClassifierWrap(props);
-		testObject.run();
+		testObject.runOriginalClassifierMain();
 	}
 	
 	@Test
@@ -47,7 +74,7 @@ public class ColumnDataClassifierWrapTest {
 	{
 		props.put("-prop", PATH + "cheese2007.prop");
 		testObject = new ColumnDataClassifierWrap(props);
-		testObject.run();
+		testObject.runOriginalClassifierMain();
 	}
 	
 	@Test
@@ -55,7 +82,7 @@ public class ColumnDataClassifierWrapTest {
 	{
 		props.put("-prop", PATH + "iris2007.prop");
 		testObject = new ColumnDataClassifierWrap(props);
-		testObject.run();
+		testObject.runOriginalClassifierMain();
 	}
 	
 	

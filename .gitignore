@@ -1,2 +1,5 @@
 sentiment/lib/stanford-corenlp-2.3.0-models.jar
 sentiment/lib/*.jar
+.metadata/*
+.metadata/**/*
+.metadata/.plugins
