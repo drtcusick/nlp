@@ -4,4 +4,10 @@
 <fullyQualifiedTypeName name="org.junit.Before"/>
 <fullyQualifiedTypeName name="edu.stanford.nlp.pipeline.Annotation"/>
 <fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.classify.ColumnDataClassifier"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.classify.RVFDataset"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.classify.LinearClassifier"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.classify.LinearClassifierFactory"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.classify.Dataset"/>
 </qualifiedTypeNameHistroy>

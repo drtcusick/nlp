@@ -1,0 +1,721 @@
+package edu.stanford.nlp.classify;
+
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+import java.io.Serializable;
+import java.util.Enumeration;
+import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+
+import edu.stanford.nlp.classify.ColumnDataClassifier.Flags;
+import edu.stanford.nlp.io.IOUtils;
+import edu.stanford.nlp.io.RuntimeIOException;
+import edu.stanford.nlp.process.WordShapeClassifier;
+import edu.stanford.nlp.stats.ClassicCounter;
+import edu.stanford.nlp.stats.TwoDimensionalCounter;
+import edu.stanford.nlp.util.ErasureUtils;
+
+public class ColumnDataClassifierExt extends ColumnDataClassifier{
+	public static class Flags implements Serializable {
+
+		public String toString() {
+			return (new StringBuilder()).append("Flags[goldAnswerColumn = ")
+					.append(goldAnswerColumn).append(", useString = ")
+					.append(useString).append(", useNGrams = ")
+					.append(useNGrams).append(", usePrefixSuffixNGrams = ")
+					.append(usePrefixSuffixNGrams).append(']').toString();
+		}
+
+		private static final long serialVersionUID = -7076671761070232566L;
+		boolean useNGrams;
+		boolean usePrefixSuffixNGrams;
+		boolean lowercaseNGrams;
+		boolean lowercase;
+		boolean useSplitNGrams;
+		boolean useSplitPrefixSuffixNGrams;
+		boolean cacheNGrams;
+		int maxNGramLeng;
+		int minNGramLeng;
+		String partialNGramRegexp;
+		Pattern partialNGramPattern;
+		boolean useSum;
+		double tolerance;
+		String printFeatures;
+		String printClassifier;
+		int printClassifierParam;
+		boolean exitAfterTrainingFeaturization;
+		boolean intern;
+		Pattern splitWordsPattern;
+		Pattern splitWordsTokenizerPattern;
+		Pattern splitWordsIgnorePattern;
+		boolean useSplitWords;
+		boolean useSplitWordPairs;
+		boolean useSplitFirstLastWords;
+		boolean useLowercaseSplitWords;
+		int wordShape;
+		int splitWordShape;
+		boolean useString;
+		boolean useClassFeature;
+		int binnedLengths[];
+		TwoDimensionalCounter binnedLengthsCounter;
+		double binnedValues[];
+		TwoDimensionalCounter binnedValuesCounter;
+		double binnedValuesNaN;
+		boolean isRealValued;
+		public static final String realValuedFeaturePrefix = "Value";
+		boolean logitTransform;
+		boolean logTransform;
+		boolean sqrtTransform;
+		char countChars[];
+		int countCharsBins[] = { 0, 1 };
+		ClassicCounter biasedHyperplane;
+		boolean justify;
+		boolean featureFormat;
+		boolean significantColumnId;
+		String useClassifierFactory;
+		String classifierFactoryArgs;
+		boolean useNB;
+		boolean useQN;
+		int QNsize;
+		int prior;
+		double sigma;
+		double epsilon;
+		int featureMinimumSupport;
+		int displayedColumn;
+		int groupingColumn;
+		int rankingScoreColumn;
+		String rankingAccuracyClass;
+		int goldAnswerColumn;
+		boolean biased;
+		boolean useSplitWordNGrams;
+		int maxWordNGramLeng;
+		int minWordNGramLeng;
+		boolean useBinary;
+		double l1reg;
+		String wordNGramBoundaryRegexp;
+		Pattern wordNGramBoundaryPattern;
+		boolean useAdaptL1;
+		int limitFeatures;
+		String limitFeaturesLabels;
+		double l1regmin;
+		double l1regmax;
+		double featureWeightThreshold;
+		String testFile;
+		public String loadClassifier;
+		static String trainFile = null;
+		static String serializeTo = null;
+		static String printTo = null;
+		static boolean trainFromSVMLight = false;
+		static boolean testFromSVMLight = false;
+		static String encoding = null;
+		static String printSVMLightFormatTo;
+		static boolean displayAllAnswers = false;
+		boolean usesRealValues;
+		boolean filename;
+		boolean useAllSplitWordPairs;
+		boolean useAllSplitWordTriples;
+		boolean showTokenization;
+
+		Flags() {
+			useNGrams = false;
+			usePrefixSuffixNGrams = false;
+			lowercaseNGrams = false;
+			useSplitNGrams = false;
+			useSplitPrefixSuffixNGrams = false;
+			cacheNGrams = false;
+			maxNGramLeng = -1;
+			minNGramLeng = 2;
+			partialNGramRegexp = null;
+			partialNGramPattern = null;
+			useSum = false;
+			tolerance = 0.0001D;
+			printFeatures = null;
+			printClassifier = null;
+			printClassifierParam = 100;
+			exitAfterTrainingFeaturization = false;
+			intern = false;
+			splitWordsPattern = null;
+			splitWordsTokenizerPattern = null;
+			splitWordsIgnorePattern = null;
+			useSplitWords = false;
+			useSplitWordPairs = false;
+			useSplitFirstLastWords = false;
+			useLowercaseSplitWords = false;
+			wordShape = -1;
+			splitWordShape = -1;
+			useString = false;
+			useClassFeature = false;
+			binnedLengths = null;
+			binnedLengthsCounter = null;
+			binnedValues = null;
+			binnedValuesCounter = null;
+			binnedValuesNaN = -1D;
+			isRealValued = false;
+			logitTransform = false;
+			logTransform = false;
+			sqrtTransform = false;
+			countChars = null;
+			biasedHyperplane = null;
+			justify = false;
+			featureFormat = false;
+			significantColumnId = false;
+			useNB = false;
+			useQN = true;
+			QNsize = 15;
+			prior = LogPrior.LogPriorType.QUADRATIC.ordinal();
+			sigma = 1.0D;
+			epsilon = 0.01D;
+			featureMinimumSupport = 0;
+			displayedColumn = 1;
+			groupingColumn = -1;
+			rankingScoreColumn = -1;
+			rankingAccuracyClass = null;
+			goldAnswerColumn = 0;
+			useSplitWordNGrams = false;
+			maxWordNGramLeng = -1;
+			minWordNGramLeng = 1;
+			useBinary = false;
+			l1reg = 0.0D;
+			useAdaptL1 = false;
+			limitFeatures = 0;
+			limitFeaturesLabels = null;
+			l1regmin = 0.0D;
+			l1regmax = 500D;
+			featureWeightThreshold = 0.0D;
+			testFile = null;
+			loadClassifier = null;
+			showTokenization = false;
+		}
+	}
+	public final Flags globalFlags;
+	public final Flags flags[];
+	protected Classifier classifier;
+	
+	public ColumnDataClassifierExt(Properties props) {
+		super(props);
+		flags = setProperties(props);
+		globalFlags = flags[0];
+	}
+	
+	public  boolean trainClassifier() throws IOException
+	       {
+	           String testFile;
+	           String serializeTo;
+	           String classString;
+	           PrintWriter fw;
+	           String trainFile = Flags.trainFile;
+	           testFile = globalFlags.testFile;
+	           serializeTo = Flags.serializeTo;
+	           if(testFile == null && serializeTo == null || trainFile == null)
+	           {
+	               System.err.println("usage: java edu.stanford.nlp.classify.ColumnDataClassifier -prop propFile");
+	               System.err.println("  and/or: -trainFile trainFile -testFile testFile|-serializeTo modelFile [-useNGrams|-sigma sigma|...]");
+	               return false;
+	           }
+	           GeneralDataset train = readTrainingExamples(trainFile);
+	           for(int i = 0; i < flags.length; i++)
+	               if(flags[i] != null && flags[i].binnedValuesCounter != null)
+	               {
+	                   System.err.println((new StringBuilder()).append("BinnedValuesStatistics for column ").append(i).toString());
+	                   System.err.println(flags[i].binnedValuesCounter.toString());
+	               }
+
+	           for(int i = 0; i < flags.length; i++)
+	               if(flags[i] != null && flags[i].binnedLengthsCounter != null)
+	               {
+	                   System.err.println((new StringBuilder()).append("BinnedLengthsStatistics for column ").append(i).toString());
+	                   System.err.println(flags[i].binnedLengthsCounter.toString());
+	               }
+
+	           if(Flags.printSVMLightFormatTo != null)
+	           {
+	               PrintWriter pw = new PrintWriter(IOUtils.getPrintWriter(Flags.printSVMLightFormatTo, Flags.encoding));
+	               train.printSVMLightFormat(pw);
+	               IOUtils.closeIgnoringExceptions(pw);
+	               train.featureIndex().saveToFilename((new StringBuilder()).append(Flags.printSVMLightFormatTo).append(".featureIndex").toString());
+	               train.labelIndex().saveToFilename((new StringBuilder()).append(Flags.printSVMLightFormatTo).append(".labelIndex").toString());
+	           }
+	           if(globalFlags.exitAfterTrainingFeaturization)
+	               return false;
+	           classifier = makeClassifier(train);
+	           classString = null;
+	           if(classifier instanceof LinearClassifier)
+	               classString = ((LinearClassifier)classifier).toString(globalFlags.printClassifier, globalFlags.printClassifierParam);
+	           else
+	           if(classifier instanceof LogisticClassifier)
+	               classString = classifier.toString();
+	           if(Flags.printTo == null)
+	               break MISSING_BLOCK_LABEL_510;
+	           fw = null;
+	           fw = IOUtils.getPrintWriter(Flags.printTo, Flags.encoding);
+	           fw.write(classString);
+	           fw.println();
+	           IOUtils.closeIgnoringExceptions(fw);
+	           break MISSING_BLOCK_LABEL_479;
+	           IOException ioe;
+	           IOUtils.closeIgnoringExceptions(fw);
+	           break MISSING_BLOCK_LABEL_479;
+	           Exception exception;
+	           IOUtils.closeIgnoringExceptions(fw);
+	           throw exception;
+	           System.err.println((new StringBuilder()).append("Built classifier described in file ").append(Flags.printTo).toString());
+	           break MISSING_BLOCK_LABEL_527;
+	           System.err.print("Built this classifier: ");
+	           System.err.println(classString);
+	           if(serializeTo != null)
+	           {
+	               System.err.println((new StringBuilder()).append("Serializing classifier to ").append(serializeTo).append("...").toString());
+	               ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(IOUtils.getFileOutputStream(serializeTo)));
+	               oos.writeObject(classifier);
+	               globalFlags.testFile = null;
+	               oos.writeObject(flags);
+	               globalFlags.testFile = testFile;
+	               oos.close();
+	               System.err.println("Done.");
+	           }
+	           return true;
+	          }
+	
+	private Flags[] setProperties(Properties props)
+    {
+        boolean myUsesRealValues;
+        Pattern prefix;
+        String loadPath;
+        ObjectInputStream ois;
+        myUsesRealValues = false;
+        try
+        {
+            prefix = Pattern.compile("([0-9]+)\\.(.*)");
+        }
+        catch(PatternSyntaxException pse)
+        {
+            throw new RuntimeException(pse);
+        }
+        loadPath = props.getProperty("loadClassifier");
+        System.err.println((new StringBuilder()).append("Loading classifier from ").append(loadPath).append("...").toString());
+        ois = null;
+        Flags myFlags[];
+        try
+        {
+            ois = IOUtils.readStreamFromString(loadPath);
+            classifier = (Classifier)ErasureUtils.uncheckedCast(ois.readObject());
+            myFlags = (Flags[])(Flags[])ois.readObject();
+            if(!$assertionsDisabled && flags.length <= 0)
+                throw new AssertionError();
+            System.err.println("Done.");
+        }
+        catch(Exception e)
+        {
+            throw new RuntimeIOException((new StringBuilder()).append("Error deserializing ").append(loadPath).toString(), e);
+        }
+        IOUtils.closeIgnoringExceptions(ois);
+        myFlags = new Flags[1];
+        myFlags[0] = new Flags();
+        Enumeration e = props.propertyNames();
+        do
+        {
+            if(!e.hasMoreElements())
+                break;
+            String key = (String)e.nextElement();
+            String val = props.getProperty(key);
+            int col = 0;
+            Matcher matcher = prefix.matcher(key);
+            if(matcher.matches())
+            {
+                col = Integer.parseInt(matcher.group(1));
+                key = matcher.group(2);
+            }
+            if(col >= myFlags.length)
+            {
+                Flags newFl[] = new Flags[col + 1];
+                System.arraycopy(myFlags, 0, newFl, 0, myFlags.length);
+                myFlags = newFl;
+            }
+            if(myFlags[col] == null)
+                myFlags[col] = new Flags();
+            if(key.equals("useString"))
+                myFlags[col].useString = Boolean.parseBoolean(val);
+            else
+            if(key.equals("binnedLengths"))
+            {
+                if(val != null)
+                {
+                    String binnedLengthStrs[] = val.split("[, ]+");
+                    myFlags[col].binnedLengths = new int[binnedLengthStrs.length];
+                    int i = 0;
+                    while(i < myFlags[col].binnedLengths.length) 
+                    {
+                        myFlags[col].binnedLengths[i] = Integer.parseInt(binnedLengthStrs[i]);
+                        i++;
+                    }
+                }
+            } else
+            if(key.equals("binnedLengthsStatistics"))
+            {
+                if(Boolean.parseBoolean(val))
+                    myFlags[col].binnedLengthsCounter = new TwoDimensionalCounter();
+            } else
+            if(key.equals("countChars"))
+                myFlags[col].countChars = val.toCharArray();
+            else
+            if(key.equals("countCharsBins"))
+            {
+                if(val != null)
+                {
+                    String binnedCountStrs[] = val.split("[, ]+");
+                    myFlags[col].countCharsBins = new int[binnedCountStrs.length];
+                    int i = 0;
+                    while(i < binnedCountStrs.length) 
+                    {
+                        myFlags[col].countCharsBins[i] = Integer.parseInt(binnedCountStrs[i]);
+                        i++;
+                    }
+                }
+            } else
+            if(key.equals("binnedValues"))
+            {
+                if(val != null)
+                {
+                    String binnedValuesStrs[] = val.split("[, ]+");
+                    myFlags[col].binnedValues = new double[binnedValuesStrs.length];
+                    int i = 0;
+                    while(i < myFlags[col].binnedValues.length) 
+                    {
+                        myFlags[col].binnedValues[i] = Double.parseDouble(binnedValuesStrs[i]);
+                        i++;
+                    }
+                }
+            } else
+            if(key.equals("binnedValuesNaN"))
+                myFlags[col].binnedValuesNaN = Double.parseDouble(val);
+            else
+            if(key.equals("binnedValuesStatistics"))
+            {
+                if(Boolean.parseBoolean(val))
+                    myFlags[col].binnedValuesCounter = new TwoDimensionalCounter();
+            } else
+            if(key.equals("useNGrams"))
+                myFlags[col].useNGrams = Boolean.parseBoolean(val);
+            else
+            if(key.equals("usePrefixSuffixNGrams"))
+                myFlags[col].usePrefixSuffixNGrams = Boolean.parseBoolean(val);
+            else
+            if(key.equals("useSplitNGrams"))
+                myFlags[col].useSplitNGrams = Boolean.parseBoolean(val);
+            else
+            if(key.equals("wordShape"))
+                myFlags[col].wordShape = WordShapeClassifier.lookupShaper(val);
+            else
+            if(key.equals("splitWordShape"))
+                myFlags[col].splitWordShape = WordShapeClassifier.lookupShaper(val);
+            else
+            if(key.equals("useSplitPrefixSuffixNGrams"))
+                myFlags[col].useSplitPrefixSuffixNGrams = Boolean.parseBoolean(val);
+            else
+            if(key.equals("lowercaseNGrams"))
+                myFlags[col].lowercaseNGrams = Boolean.parseBoolean(val);
+            else
+            if(key.equals("lowercase"))
+                myFlags[col].lowercase = Boolean.parseBoolean(val);
+            else
+            if(key.equals("useLowercaseSplitWords"))
+                myFlags[col].useLowercaseSplitWords = Boolean.parseBoolean(val);
+            else
+            if(key.equals("useSum"))
+                myFlags[col].useSum = Boolean.parseBoolean(val);
+            else
+            if(key.equals("tolerance"))
+                myFlags[col].tolerance = Double.parseDouble(val);
+            else
+            if(key.equals("printFeatures"))
+                myFlags[col].printFeatures = val;
+            else
+            if(key.equals("printClassifier"))
+                myFlags[col].printClassifier = val;
+            else
+            if(key.equals("printClassifierParam"))
+                myFlags[col].printClassifierParam = Integer.parseInt(val);
+            else
+            if(key.equals("exitAfterTrainingFeaturization"))
+                myFlags[col].exitAfterTrainingFeaturization = Boolean.parseBoolean(val);
+            else
+            if(key.equals("intern") || key.equals("intern2"))
+                myFlags[col].intern = Boolean.parseBoolean(val);
+            else
+            if(key.equals("cacheNGrams"))
+                myFlags[col].cacheNGrams = Boolean.parseBoolean(val);
+            else
+            if(key.equals("useClassifierFactory"))
+                myFlags[col].useClassifierFactory = val;
+            else
+            if(key.equals("classifierFactoryArgs"))
+                myFlags[col].classifierFactoryArgs = val;
+            else
+            if(key.equals("useNB"))
+                myFlags[col].useNB = Boolean.parseBoolean(val);
+            else
+            if(key.equals("useBinary"))
+                myFlags[col].useBinary = Boolean.parseBoolean(val);
+            else
+            if(key.equals("l1reg"))
+                myFlags[col].l1reg = Double.parseDouble(val);
+            else
+            if(key.equals("useAdaptL1"))
+                myFlags[col].useAdaptL1 = Boolean.parseBoolean(val);
+            else
+            if(key.equals("limitFeatures"))
+                myFlags[col].limitFeatures = Integer.parseInt(val);
+            else
+            if(key.equals("l1regmin"))
+                myFlags[col].l1regmin = Double.parseDouble(val);
+            else
+            if(key.equals("l1regmax"))
+                myFlags[col].l1regmax = Double.parseDouble(val);
+            else
+            if(key.equals("limitFeaturesLabels"))
+                myFlags[col].limitFeaturesLabels = val;
+            else
+            if(key.equals("featureWeightThreshold"))
+                myFlags[col].featureWeightThreshold = Double.parseDouble(val);
+            else
+            if(key.equals("useClassFeature"))
+                myFlags[col].useClassFeature = Boolean.parseBoolean(val);
+            else
+            if(key.equals("featureMinimumSupport"))
+                myFlags[col].featureMinimumSupport = Integer.parseInt(val);
+            else
+            if(key.equals("prior"))
+            {
+                if(val.equalsIgnoreCase("no"))
+                    myFlags[col].prior = LogPrior.LogPriorType.NULL.ordinal();
+                else
+                if(val.equalsIgnoreCase("huber"))
+                    myFlags[col].prior = LogPrior.LogPriorType.HUBER.ordinal();
+                else
+                if(val.equalsIgnoreCase("quadratic"))
+                    myFlags[col].prior = LogPrior.LogPriorType.QUADRATIC.ordinal();
+                else
+                if(val.equalsIgnoreCase("quartic"))
+                    myFlags[col].prior = LogPrior.LogPriorType.QUARTIC.ordinal();
+                else
+                    try
+                    {
+                        myFlags[col].prior = Integer.parseInt(val);
+                    }
+                    catch(NumberFormatException nfe)
+                    {
+                        System.err.println((new StringBuilder()).append("Unknown prior ").append(val).append("; using none.").toString());
+                    }
+            } else
+            if(key.equals("sigma"))
+                myFlags[col].sigma = Double.parseDouble(val);
+            else
+            if(key.equals("epsilon"))
+                myFlags[col].epsilon = Double.parseDouble(val);
+            else
+            if(key.equals("maxNGramLeng"))
+                myFlags[col].maxNGramLeng = Integer.parseInt(val);
+            else
+            if(key.equals("minNGramLeng"))
+                myFlags[col].minNGramLeng = Integer.parseInt(val);
+            else
+            if(key.equals("partialNGramRegexp"))
+            {
+                myFlags[col].partialNGramRegexp = val;
+                try
+                {
+                    myFlags[col].partialNGramPattern = Pattern.compile(myFlags[col].partialNGramRegexp);
+                }
+                catch(PatternSyntaxException pse)
+                {
+                    System.err.println((new StringBuilder()).append("Ill-formed partialNGramPattern: ").append(myFlags[col].partialNGramPattern).toString());
+                    myFlags[col].partialNGramRegexp = null;
+                }
+            } else
+            if(key.equals("splitWordsRegexp"))
+                try
+                {
+                    myFlags[col].splitWordsPattern = Pattern.compile(val);
+                }
+                catch(PatternSyntaxException pse)
+                {
+                    System.err.println((new StringBuilder()).append("Ill-formed splitWordsRegexp: ").append(val).toString());
+                }
+            else
+            if(key.equals("splitWordsTokenizerRegexp"))
+                try
+                {
+                    myFlags[col].splitWordsTokenizerPattern = Pattern.compile(val);
+                }
+                catch(PatternSyntaxException pse)
+                {
+                    System.err.println((new StringBuilder()).append("Ill-formed splitWordsTokenizerRegexp: ").append(val).toString());
+                }
+            else
+            if(key.equals("splitWordsIgnoreRegexp"))
+                try
+                {
+                    myFlags[col].splitWordsIgnorePattern = Pattern.compile(val);
+                }
+                catch(PatternSyntaxException pse)
+                {
+                    System.err.println((new StringBuilder()).append("Ill-formed splitWordsIgnoreRegexp: ").append(val).toString());
+                }
+            else
+            if(key.equals("useSplitWords"))
+                myFlags[col].useSplitWords = Boolean.parseBoolean(val);
+            else
+            if(key.equals("useSplitWordPairs"))
+                myFlags[col].useSplitWordPairs = Boolean.parseBoolean(val);
+            else
+            if(key.equals("useAllSplitWordPairs"))
+                myFlags[col].useAllSplitWordPairs = Boolean.parseBoolean(val);
+            else
+            if(key.equals("useAllSplitWordTriples"))
+                myFlags[col].useAllSplitWordTriples = Boolean.parseBoolean(val);
+            else
+            if(key.equals("useSplitWordNGrams"))
+                myFlags[col].useSplitWordNGrams = Boolean.parseBoolean(val);
+            else
+            if(key.equals("maxWordNGramLeng"))
+                myFlags[col].maxWordNGramLeng = Integer.parseInt(val);
+            else
+            if(key.equals("minWordNGramLeng"))
+            {
+                myFlags[col].minWordNGramLeng = Integer.parseInt(val);
+                if(myFlags[col].minWordNGramLeng < 1)
+                {
+                    System.err.println((new StringBuilder()).append("minWordNGramLeng set to ").append(myFlags[col].minWordNGramLeng).append(", resetting to 1").toString());
+                    myFlags[col].minWordNGramLeng = 1;
+                }
+            } else
+            if(key.equals("wordNGramBoundaryRegexp"))
+            {
+                myFlags[col].wordNGramBoundaryRegexp = val;
+                try
+                {
+                    myFlags[col].wordNGramBoundaryPattern = Pattern.compile(myFlags[col].wordNGramBoundaryRegexp);
+                }
+                catch(PatternSyntaxException pse)
+                {
+                    System.err.println((new StringBuilder()).append("Ill-formed wordNGramBoundary regexp: ").append(myFlags[col].wordNGramBoundaryRegexp).toString());
+                    myFlags[col].wordNGramBoundaryRegexp = null;
+                }
+            } else
+            if(key.equals("useSplitFirstLastWords"))
+                myFlags[col].useSplitFirstLastWords = Boolean.parseBoolean(val);
+            else
+            if(key.equals("loadClassifier"))
+                myFlags[col].loadClassifier = val;
+            else
+            if(key.equals("serializeTo"))
+                Flags.serializeTo = val;
+            else
+            if(key.equals("printTo"))
+                Flags.printTo = val;
+            else
+            if(key.equals("trainFile"))
+                Flags.trainFile = val;
+            else
+            if(key.equals("displayAllAnswers"))
+                Flags.displayAllAnswers = Boolean.parseBoolean(val);
+            else
+            if(key.equals("testFile"))
+                myFlags[col].testFile = val;
+            else
+            if(key.equals("trainFromSVMLight"))
+                Flags.trainFromSVMLight = Boolean.parseBoolean(val);
+            else
+            if(key.equals("testFromSVMLight"))
+                Flags.testFromSVMLight = Boolean.parseBoolean(val);
+            else
+            if(key.equals("encoding"))
+                Flags.encoding = val;
+            else
+            if(key.equals("printSVMLightFormatTo"))
+                Flags.printSVMLightFormatTo = val;
+            else
+            if(key.equals("displayedColumn"))
+                myFlags[col].displayedColumn = Integer.parseInt(val);
+            else
+            if(key.equals("groupingColumn"))
+                myFlags[col].groupingColumn = Integer.parseInt(val);
+            else
+            if(key.equals("rankingScoreColumn"))
+                myFlags[col].rankingScoreColumn = Integer.parseInt(val);
+            else
+            if(key.equals("rankingAccuracyClass"))
+                myFlags[col].rankingAccuracyClass = val;
+            else
+            if(key.equals("goldAnswerColumn"))
+                myFlags[col].goldAnswerColumn = Integer.parseInt(val);
+            else
+            if(key.equals("useQN"))
+                myFlags[col].useQN = Boolean.parseBoolean(val);
+            else
+            if(key.equals("QNsize"))
+                myFlags[col].QNsize = Integer.parseInt(val);
+            else
+            if(key.equals("featureFormat"))
+                myFlags[col].featureFormat = Boolean.parseBoolean(val);
+            else
+            if(key.equals("significantColumnId"))
+                myFlags[col].significantColumnId = Boolean.parseBoolean(val);
+            else
+            if(key.equals("justify"))
+                myFlags[col].justify = Boolean.parseBoolean(val);
+            else
+            if(key.equals("realValued"))
+            {
+                myFlags[col].isRealValued = Boolean.parseBoolean(val);
+                myUsesRealValues = myUsesRealValues || myFlags[col].isRealValued;
+            } else
+            if(key.equals("logTransform"))
+            {
+                myFlags[col].logTransform = Boolean.parseBoolean(val);
+                myUsesRealValues = myUsesRealValues || myFlags[col].logTransform;
+            } else
+            if(key.equals("logitTransform"))
+            {
+                myFlags[col].logitTransform = Boolean.parseBoolean(val);
+                myUsesRealValues = myUsesRealValues || myFlags[col].logitTransform;
+            } else
+            if(key.equals("sqrtTransform"))
+            {
+                myFlags[col].sqrtTransform = Boolean.parseBoolean(val);
+                myUsesRealValues = myUsesRealValues || myFlags[col].sqrtTransform;
+            } else
+            if(key.equals("filename"))
+                myFlags[col].filename = Boolean.parseBoolean(val);
+            else
+            if(key.equals("biased"))
+                myFlags[col].biased = Boolean.parseBoolean(val);
+            else
+            if(key.equals("biasedHyperplane"))
+            {
+                if(val != null && val.trim().length() > 0)
+                {
+                    String bits[] = val.split("[, ]+");
+                    myFlags[col].biasedHyperplane = new ClassicCounter();
+                    int i = 0;
+                    while(i < bits.length) 
+                    {
+                        myFlags[col].biasedHyperplane.setCount(bits[i], Double.parseDouble(bits[i + 1]));
+                        i += 2;
+                    }
+                }
+            } else
+            if(key.length() > 0 && !key.equals("prop"))
+                System.err.println((new StringBuilder()).append("Unknown property: |").append(key).append('|').toString());
+        } while(true);
+        myFlags[0].usesRealValues = myUsesRealValues;
+        return myFlags;
+    }
+
+
+}

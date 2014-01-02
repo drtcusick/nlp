@@ -27,6 +27,14 @@ public class ColumnDataClassifierWrapTest {
 	
 	
 	@Test
+	public void testRunClassifier_PhrasesWithoutMain() throws IOException
+	{
+		props.put("-prop", PATH + "phrases.prop");
+		testObject = new ColumnDataClassifierWrap(props);
+		testObject.runFromExtendedClass();
+	}
+	
+	@Test
 	public void testRunClassifier_Phrases() throws IOException
 	{
 		props.put("-prop", PATH + "phrases.prop");

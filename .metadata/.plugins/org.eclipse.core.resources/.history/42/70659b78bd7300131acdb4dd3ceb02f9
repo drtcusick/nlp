@@ -1,0 +1,15 @@
+package edu.stanford.nlp.classify;
+
+import java.util.Properties;
+
+public class ColumnDataClassifierExt extends ColumnDataClassifier{
+
+	protected final Flags globalFlags;
+	
+	public ColumnDataClassifierExt(Properties props) {
+		super(props);
+		flags = setProperties(props);
+		globalFlags = flags[0];
+	}
+
+}

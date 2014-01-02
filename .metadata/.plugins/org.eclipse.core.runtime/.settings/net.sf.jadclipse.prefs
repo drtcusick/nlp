@@ -1,0 +1,4 @@
+eclipse.preferences.version=1
+net.sf.jadclipse.cmd=C\:\\Program Files\\Jad\\jad.exe
+net.sf.jadclipse.tempd=C\:\\Temp
+net.sf.jadclipse.use_eclipse_formatter=true
