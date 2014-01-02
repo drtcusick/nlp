@@ -2,6 +2,7 @@ package com.asynchrony.nlp.classifier;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +16,8 @@ public class ColumnDataClassifierWrapTest {
 	
 	private ColumnDataClassifierWrap testObject;
 	private HashMap<String, String> props = new HashMap<String, String>();
-	private static final String PATH = "/home/dev1/git/nlp/classifier/document";
+	private static final String PATH_LINUX = "/home/dev1/git/nlp/classifier/document/examples/";
+	private static final String PATH = "C:\\workspace\\nlp\\classifier\\document\\examples\\";
 	
 	@Before
 	public void setUp()
@@ -25,9 +27,17 @@ public class ColumnDataClassifierWrapTest {
 	
 	
 	@Test
+	public void testRunClassifier_Phrases() throws IOException
+	{
+		props.put("-prop", PATH + "phrases.prop");
+		testObject = new ColumnDataClassifierWrap(props);
+		testObject.run();
+	}
+	
+	@Test
 	public void testRunClassifier_Cheese() throws IOException
 	{
-		props.put("-prop", PATH + "/examples/cheese2007.prop");
+		props.put("-prop", PATH + "cheese2007.prop");
 		testObject = new ColumnDataClassifierWrap(props);
 		testObject.run();
 	}
@@ -35,7 +45,7 @@ public class ColumnDataClassifierWrapTest {
 	@Test
 	public void testRunClassifier_Iris() throws IOException
 	{
-		props.put("-prop", PATH + "/examples/iris2007.prop");
+		props.put("-prop", PATH + "iris2007.prop");
 		testObject = new ColumnDataClassifierWrap(props);
 		testObject.run();
 	}

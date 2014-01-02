@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="FirstTest.testSentimentPipelineMainCode" project="sentiment" tests="1" started="1" failures="0" errors="0" ignored="0">
-  <testcase name="testSentimentPipelineMainCode" classname="com.asynchrony.nlp.sentiment.FirstTest" time="2.965"/>
-</testrun>
