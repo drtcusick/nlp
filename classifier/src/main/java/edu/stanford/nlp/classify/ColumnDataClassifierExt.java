@@ -598,11 +598,30 @@ public class ColumnDataClassifierExt extends ColumnDataClassifier {
 		}
 	}
 
-	public boolean trainClassifier() throws IOException {
+	public boolean trainClassifierFromList(String[][] lines) throws IOException {
+		GeneralDataset dataset;
+		if (globalFlags.usesRealValues)
+			dataset = new RVFDataset();
+		else
+			dataset = new Dataset();
+		
+		int lineNo = 0;
+		for (String[] line : lines) {
+			if (line.length == 2)
+			{
+				String lineTab = line[0] + "\t" + line[1];
+				lineNo++;
+				Datum d = makeDatumFromLine(lineTab, lineNo);
+				if (d != null)
+					dataset.add(d);
+			}
+		}
+		return trainClassifierFromGeneralDataset(dataset);
+	}
+	
+	public boolean trainClassifierFromFile() throws IOException {
 		String testFile;
 		String serializeTo;
-		String classString;
-		PrintWriter fw;
 		String trainFile = Flags.trainFile;
 		testFile = globalFlags.testFile;
 		serializeTo = Flags.serializeTo;
@@ -614,6 +633,12 @@ public class ColumnDataClassifierExt extends ColumnDataClassifier {
 			return false;
 		}
 		GeneralDataset train = readTrainingExamples(trainFile);
+		return trainClassifierFromGeneralDataset(train);
+	}
+	
+	public boolean trainClassifierFromGeneralDataset(GeneralDataset train) throws IOException {
+		String classString;
+		PrintWriter fw;
 		for (int i = 0; i < flags.length; i++)
 			if (flags[i] != null && flags[i].binnedValuesCounter != null) {
 				System.err.println((new StringBuilder())
@@ -630,18 +655,6 @@ public class ColumnDataClassifierExt extends ColumnDataClassifier {
 				System.err.println(flags[i].binnedLengthsCounter.toString());
 			}
 
-		if (Flags.printSVMLightFormatTo != null) {
-			PrintWriter pw = new PrintWriter(IOUtils.getPrintWriter(
-					Flags.printSVMLightFormatTo, Flags.encoding));
-			train.printSVMLightFormat(pw);
-			IOUtils.closeIgnoringExceptions(pw);
-			train.featureIndex().saveToFilename(
-					(new StringBuilder()).append(Flags.printSVMLightFormatTo)
-							.append(".featureIndex").toString());
-			train.labelIndex().saveToFilename(
-					(new StringBuilder()).append(Flags.printSVMLightFormatTo)
-							.append(".labelIndex").toString());
-		}
 		if (globalFlags.exitAfterTrainingFeaturization)
 			return false;
 		classifier = makeClassifier(train);
@@ -665,20 +678,6 @@ public class ColumnDataClassifierExt extends ColumnDataClassifier {
 				.append(Flags.printTo).toString());
 		System.err.print("Built this classifier: ");
 		System.err.println(classString);
-		if (serializeTo != null) {
-			System.err.println((new StringBuilder())
-					.append("Serializing classifier to ").append(serializeTo)
-					.append("...").toString());
-			ObjectOutputStream oos = new ObjectOutputStream(
-					new BufferedOutputStream(
-							IOUtils.getFileOutputStream(serializeTo)));
-			oos.writeObject(classifier);
-			globalFlags.testFile = null;
-			oos.writeObject(flags);
-			globalFlags.testFile = testFile;
-			oos.close();
-			System.err.println("Done.");
-		}
 		return true;
 	}
 

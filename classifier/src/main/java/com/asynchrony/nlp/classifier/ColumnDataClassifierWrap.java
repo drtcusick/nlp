@@ -1,6 +1,9 @@
 package com.asynchrony.nlp.classifier;
 
+import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,6 +13,11 @@ import java.util.regex.Pattern;
 import edu.stanford.nlp.classify.Classifier;
 import edu.stanford.nlp.classify.ColumnDataClassifier;
 import edu.stanford.nlp.classify.ColumnDataClassifierExt;
+import edu.stanford.nlp.classify.GeneralDataset;
+import edu.stanford.nlp.classify.LinearClassifier;
+import edu.stanford.nlp.classify.LogisticClassifier;
+import edu.stanford.nlp.classify.ColumnDataClassifierExt.Flags;
+import edu.stanford.nlp.io.IOUtils;
 import edu.stanford.nlp.util.StringUtils;
 
 public class ColumnDataClassifierWrap {
@@ -22,12 +30,19 @@ public class ColumnDataClassifierWrap {
 	
 	private ColumnDataClassifierExt cdc;
 
-	public ColumnDataClassifierWrap(Map<String, String> props) {
+	public ColumnDataClassifierWrap(Map<String, String> props, String[][] trainSet) {
 		this.props = props;
 		String[] args = propertiesToArgs(props);
 		cdc = new ColumnDataClassifierExt(
 				StringUtils.argsToProperties(args));
-		trainClassifier();
+		if (trainSet == null || trainSet.length < 1)
+		{
+			trainClassifierFromFile();
+		}
+		else
+		{
+			trainClassifierFromList(trainSet);
+		}
 		setCategories();
 	}
 
@@ -61,11 +76,21 @@ public class ColumnDataClassifierWrap {
 		if (testFile != null)
 			cdc.testClassifier(testFile);
 	}
+	
+	private void trainClassifierFromList(String[][] lines)
+	{
+		try {
+			cdc.trainClassifierFromList(lines);
+		} catch (IOException e) {
+			System.out.println("TWC OOPS we threw an exception training.");
+			e.printStackTrace();
+		}
+	}
 
-	private void trainClassifier() {
+	private void trainClassifierFromFile() {
 		boolean trainClassifier = false;
 		try {
-			trainClassifier = cdc.trainClassifier();
+			trainClassifier = cdc.trainClassifierFromFile();
 		} catch (IOException e) {
 			System.out.println("TWC OOPS we threw an exception training.");
 			e.printStackTrace();

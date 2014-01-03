@@ -28,7 +28,7 @@ public class ColumnDataClassifierWrapTest {
 	@Test
 	public void testClassifySentence() throws Exception {
 		props.put("-prop", PATH + "phrases.prop");
-		testObject = new ColumnDataClassifierWrap(props);
+		testObject = new ColumnDataClassifierWrap(props, null);
 		assertEquals("2", testObject.classifySentence(
 				"The determination in John is incredible, he never gives up.").getCategory());
 		assertEquals("1", testObject.classifySentence(
@@ -42,7 +42,7 @@ public class ColumnDataClassifierWrapTest {
 	@Test
 	public void testClassifySentence_categoryTextAssignedCorrectly() throws Exception {
 		props.put("-prop", PATH + "phrases.prop");
-		testObject = new ColumnDataClassifierWrap(props);
+		testObject = new ColumnDataClassifierWrap(props, null);
 		assertEquals(testObject.categories.get("2"), testObject.classifySentence(
 				"The determination in John is incredible, he never gives up.").getCategoryText());
 		assertEquals(testObject.categories.get("1"), testObject.classifySentence(
@@ -57,7 +57,7 @@ public class ColumnDataClassifierWrapTest {
 	public void testRunClassifier_ExternalizedWithTestFile() throws IOException
 	{
 		props.put("-prop", PATH + "phrases.prop");
-		testObject = new ColumnDataClassifierWrap(props);
+		testObject = new ColumnDataClassifierWrap(props, null);
 		testObject.runTestFromParameterSpecifiedFile();
 	}
 	
@@ -65,7 +65,7 @@ public class ColumnDataClassifierWrapTest {
 	public void testRunClassifier_Phrases() throws IOException
 	{
 		props.put("-prop", PATH + "phrases.prop");
-		testObject = new ColumnDataClassifierWrap(props);
+		testObject = new ColumnDataClassifierWrap(props, null);
 		testObject.runOriginalClassifierMain();
 	}
 	
@@ -73,7 +73,7 @@ public class ColumnDataClassifierWrapTest {
 	public void testRunClassifier_Cheese() throws IOException
 	{
 		props.put("-prop", PATH + "cheese2007.prop");
-		testObject = new ColumnDataClassifierWrap(props);
+		testObject = new ColumnDataClassifierWrap(props, null);
 		testObject.runOriginalClassifierMain();
 	}
 	
@@ -81,7 +81,7 @@ public class ColumnDataClassifierWrapTest {
 	public void testRunClassifier_Iris() throws IOException
 	{
 		props.put("-prop", PATH + "iris2007.prop");
-		testObject = new ColumnDataClassifierWrap(props);
+		testObject = new ColumnDataClassifierWrap(props, null);
 		testObject.runOriginalClassifierMain();
 	}
 	
