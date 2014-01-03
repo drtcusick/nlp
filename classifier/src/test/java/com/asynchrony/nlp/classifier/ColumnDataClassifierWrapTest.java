@@ -44,7 +44,7 @@ public class ColumnDataClassifierWrapTest {
 	@Test
 	public void testClassifySentence() throws Exception {
 		props.put("-prop", PATH + "phrases.prop");
-		testObject = new ColumnDataClassifierWrap(props, null);
+		testObject = new ColumnDataClassifierWrap(props, TrainingSet.TRAINING_SET_PHRASES);
 		assertEquals("2", testObject.classifySentence(
 				"The determination in John is incredible, he never gives up.").getCategory());
 		assertEquals("1", testObject.classifySentence(
@@ -58,7 +58,7 @@ public class ColumnDataClassifierWrapTest {
 	@Test
 	public void testClassifySentence_categoryTextAssignedCorrectly() throws Exception {
 		props.put("-prop", PATH + "phrases.prop");
-		testObject = new ColumnDataClassifierWrap(props, null);
+		testObject = new ColumnDataClassifierWrap(props, TrainingSet.TRAINING_SET_PHRASES);
 		assertEquals(testObject.categories.get("2"), testObject.classifySentence(
 				"The determination in John is incredible, he never gives up.").getCategoryText());
 		assertEquals(testObject.categories.get("1"), testObject.classifySentence(
@@ -104,6 +104,7 @@ public class ColumnDataClassifierWrapTest {
 	
 	@Test
 	public void testPropertiesToArgs() throws Exception {
+		testObject = new ColumnDataClassifierWrap(props, null);
 		Map<String, String> map = new TreeMap<String, String>();
 		map.put("-last", "LastName");
 		map.put("-first", "FirstName");
