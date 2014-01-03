@@ -10,7 +10,7 @@ public class CategoryResult {
 			String probability) {
 		this.category = category;
 		this.categoryText = categoryText;
-		this.probability = probability;
+		this.setProbability(probability);
 	}
 	public String getCategory() {
 		return category;
@@ -28,7 +28,14 @@ public class CategoryResult {
 		return probability;
 	}
 	public void setProbability(String probability) {
-		this.probability = probability;
+		if (probability.length() > 6)
+		{
+			this.probability = probability.substring(0, 5);
+		}
+		else
+		{
+			this.probability = probability;
+		}
 	}
 	
 	

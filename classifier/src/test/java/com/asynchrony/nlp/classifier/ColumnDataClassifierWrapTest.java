@@ -26,6 +26,22 @@ public class ColumnDataClassifierWrapTest {
 	}
 	
 	@Test
+	public void testClassifySentence_trainByStringArray() throws Exception {
+		props.put("-prop", PATH + "phrases.prop");
+		testObject = new ColumnDataClassifierWrap(props, TrainingSet.TRAINING_SET_PHRASES);
+		assertEquals("2", testObject.classifySentence(
+				"The determination in John is incredible, he never gives up.").getCategory());
+		assertEquals("1", testObject.classifySentence(
+				"Thinking strategically, Nate exchanged team developers on an individual basis.").getCategory());
+		assertEquals("3", testObject.classifySentence(
+				"Composure was maintained by all as the bad news was delivered.").getCategory());
+		assertEquals("4", testObject.classifySentence(
+				"Visualization and planning explain the success of this project.").getCategory());
+	}
+	
+
+	
+	@Test
 	public void testClassifySentence() throws Exception {
 		props.put("-prop", PATH + "phrases.prop");
 		testObject = new ColumnDataClassifierWrap(props, null);

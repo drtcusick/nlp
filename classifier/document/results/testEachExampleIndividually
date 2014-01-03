@@ -1,0 +1,52 @@
+
+Each sentence in the training set is removed from the training set and used as the
+test sentence for the classifier.
+
+Visualization  4  0.978  Dan explained a user-driven approach to visualization and modeling.
+Visualization  4  0.950  When visualizing the ideal plan, John was right there.
+Visualization  4  0.940  Wes was eager to demonstrate incorporating visualization into a successful routine.
+Visualization  4  0.901  Visualization of the required work was daunting until Ryan stepped to the podium.
+Visualization  4  0.936  Edward wisely used to time to teach the team techniques in visualization.
+Visualization  4  0.977  Greg is able to visualize the ideal of everything that he would like to achieve.
+Visualization  4  0.941  Andi is able to visualize and analyze both basic and creative solutions.
+Visualization  4  0.964  Visualization and planning explain the success of this project.
+Visualization  4  0.957  Wilbert showed the team how visualization can help bring about remarkable change.
+Visualization  4  0.958  James does all the right things; he visualizes and expresses gratitude.
+Determination  2  0.990  Thanks to Dave, the draft determination will protect customers from significant price shocks.
+Determination  2  0.991  In understanding the clients issues, Ben's determination never wavered.
+Determination  2  0.989  The overriding reason we landed the contract was Neil's determination to please the client.
+Determination  2  0.981  Next time you are tired or second guessing yourself, try to channel your determination.
+Determination  2  0.984  The determination in John is incredible, he never gives up.
+Determination  2  0.982  He has the ability to see past the challenge with his determination.
+Determination  2  0.990  Nathan returned to school with a determination to finish.
+Determination  2  0.963  As usual, Lisa approached the task with determination and energy.
+Determination  2  0.984  William's determination carried him through the battle.
+Determination  2  0.968  We learned quickly that the most important predictor of success is determination.
+Determination  2  0.978  Bob's determination would not allow him to leave the office until the task was completed.
+Determination  2  0.984  Through perseverance and determination, Jason ensured the project would be a success.
+Determination  2  0.987  Joe displayed a fierce determination not to accept defeat.
+Thinking Strategically  1  0.997  Lee was thinking strategically when he organized our new digital Kanban board.
+Thinking Strategically  1  0.996  During our retrospective, the entire team was thinking strategically in moving our standups to the phone system.
+Thinking Strategically  1  0.997  The team lead, thinking strategically, brought healthy breakfast selections to our early morning meeting.
+Thinking Strategically  1  0.998  By keeping our technology options open, Travis was thinking strategically.
+Thinking Strategically  1  0.996  By bringing her lunch to work, Mackenzie was thinking strategically about organizing her day.
+Thinking Strategically  1  0.986  Thinking strategically, Nate exchanged team developers on an individual basis.
+Thinking Strategically  1  0.997  Ryan was thinking strategically when he took the initiative to learn a new technology.
+Thinking Strategically  1  0.997  The team created a branching policy by thinking strategically.
+Thinking Strategically  1  0.992  Steve was thinking strategically by suggesting the use of natural language processing.
+Thinking Strategically  1  0.998  The dog was thinking strategically when he buried his extra bone in the back yard.
+Thinking Strategically  1  0.995  Robert's decision to include documentation showed that he was thinking strategically.
+Thinking Strategically  1  0.993  Jason's role is to ensure that the team is thinking strategically.
+Thinking Strategically  1  0.997  The fate of the project was announced, showing he was thinking strategically.
+Thinking Strategically  1  0.894  The presentation included strategically positioned highlights.
+Composed  3  0.991  Lee remained composed as the remote developers became upset.
+Composed  3  0.987  Sara maintained her composure as the client criticized her presentation.
+Composed  3  0.964  Although the room became heated, Bob remain completely composed.
+Composed  3  0.986  Composure was maintained by all as the bad news was delivered.
+Composed  3  0.969  June retained her composure after the non politically correct joke.
+Composed  3  0.988  Unsurprisingly, Sherri did not maintain her composure.
+Composed  3  0.998  As the bad news was delivered, everyone except Missi maintained their composure.
+Composed  3  0.935  Mark was as composed as a church mouse when he lost the game.
+Composed  3  0.993  I was surprised that Sarah did not remain composed after she was fired.
+Composed  3  0.860  Remaining composed was the focus of the motivational speaker.
+Composed  3  0.888  He accepted their problems with composure and she with equanimity.
