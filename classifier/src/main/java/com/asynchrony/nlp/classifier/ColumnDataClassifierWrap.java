@@ -22,8 +22,8 @@ import edu.stanford.nlp.util.StringUtils;
 
 public class ColumnDataClassifierWrap {
 
-	private static final String UNKNOWN = "Unknown";
-	private static final CategoryResult UNKNOWN_CATEGORY_RESULT = new CategoryResult("-1", UNKNOWN, "0.0");
+	private static final CategoryResult UNKNOWN_CATEGORY_RESULT = 
+				new CategoryResult("-1", TrainingSet.UNKNOWN, "0.0");
 	private Map<String, String> props;
 	protected Map<String, String> categories;
 	private static final Pattern tab = Pattern.compile("\\t");
@@ -114,12 +114,9 @@ public class ColumnDataClassifierWrap {
 
 	private void setCategories() {
 		categories = new HashMap<String, String>();
-		categories.put("-1", UNKNOWN);
-		categories.put("0", UNKNOWN);
-		categories.put("1", "Thinking Strategically");
-		categories.put("2", "Determination");
-		categories.put("3", "Composed");
-		categories.put("4", "Visualization");
+		for (String[] category : TrainingSet.TRAINING_CATEGORIES) {
+			categories.put(category[0], category[1]);
+		}
 	}
 
 

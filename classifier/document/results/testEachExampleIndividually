@@ -1,6 +1,6 @@
 
 Each sentence in the training set is removed from the training set and used as the
-test sentence for the classifier.
+test sentence for the classifier.  See TrainingSetTest.java
 
 Visualization  4  0.978  Dan explained a user-driven approach to visualization and modeling.
 Visualization  4  0.950  When visualizing the ideal plan, John was right there.

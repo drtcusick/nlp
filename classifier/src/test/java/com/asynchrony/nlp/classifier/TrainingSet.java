@@ -1,7 +1,14 @@
 package com.asynchrony.nlp.classifier;
 
 public class TrainingSet {
-
+	
+	public static final String UNKNOWN = "Unknown";
+	public static final String TRAINING_CATEGORIES[][] = 
+		{{"-1", UNKNOWN}, {"0", UNKNOWN}, 
+		{"1", "Thinking Strategically"}, {"2", "Determination"}, 
+		{"3", "Composed"}, {"4", "Visualization"}, {"5", "Problems Perceiving Them"}};
+	
+	
 	public static final String TRAINING_SET_PHRASES[][] = 
 		{{"4", "Dan explained a user-driven approach to visualization and modeling."},
 		{"4", "When visualizing the ideal plan, John was right there."},
@@ -50,6 +57,18 @@ public class TrainingSet {
 		{"3", "Mark was as composed as a church mouse when he lost the game."},
 		{"3", "I was surprised that Sarah did not remain composed after she was fired."},
 		{"3", "Remaining composed was the focus of the motivational speaker."},
-		{"3", "He accepted their problems with composure and she with equanimity."} };
+		{"3", "He accepted their problems with composure and she with equanimity."}, 
+		{"5", "quickly saw the problem with the project"},
+		{"5", "did a good job at determining that the system was not performing correctly"},
+		{"5", "perceived that there were problems that were not being addressed"},
+		{"5", "was able to see that the machine was broken"},
+		{"5", "saw that the dependencies were not aligned correctly"},
+		{"5", "became aware of the problems that were plaguing the installation"},
+		{"5", "realized that the inefficiency was due to the machine design"},
+		{"5", "discerned that the team was failing to perform well enough"},
+		{"5", "identified that there was no responsible party identified"},
+		{"5", "comprehended that the nature of the problem was machine based"},
+		{"5", "understood that there were too many steps in the process"}
+		};
 
 }
