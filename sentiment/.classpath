@@ -13,9 +13,9 @@
 	<classpathentry kind="lib" path="lib/stanford-corenlp-3.3.0-sources.jar"/>
 	<classpathentry kind="lib" path="lib/stanford-corenlp-3.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/xom.jar"/>
-	<classpathentry kind="lib" path="lib/stanford-corenlp/stanford-corenlp-3.3.0-models.jar"/>
 	<classpathentry kind="lib" path="lib/stanford-corenlp/stanford-corenlp-3.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/stanford-corenlp/ejml-0.23.jar"/>
+	<classpathentry kind="lib" path="lib/stanford-corenlp/stanford-corenlp-3.3.0-models.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

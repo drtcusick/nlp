@@ -30,8 +30,22 @@ public class ColumnDataClassifierWrap {
 	
 	private ColumnDataClassifierExt cdc;
 
+	public ColumnDataClassifierWrap(String allProperties[][], String[][] trainSet)
+	{
+		this.props = new HashMap<String, String>();
+		for (String[] property : allProperties) {
+			this.props.put("-" + property[0], property[1]);
+		}
+		constructClassifierExtended(trainSet);
+	}
+	
 	public ColumnDataClassifierWrap(Map<String, String> props, String[][] trainSet) {
 		this.props = props;
+		constructClassifierExtended(trainSet);
+	}
+	
+	private void constructClassifierExtended(String[][] trainSet)
+	{
 		String[] args = propertiesToArgs(props);
 		cdc = new ColumnDataClassifierExt(
 				StringUtils.argsToProperties(args));
