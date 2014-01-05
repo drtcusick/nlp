@@ -45,6 +45,11 @@ public class ColumnDataClassifierWrap {
 		}
 		setCategories();
 	}
+	
+	public String getSentenceCategory(String sentence)
+	{
+		return classifySentence(sentence).getCategoryText();
+	}
 
 	public CategoryResult classifySentence(String sentence)
 	{

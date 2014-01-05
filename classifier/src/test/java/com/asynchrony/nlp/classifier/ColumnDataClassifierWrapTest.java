@@ -26,6 +26,14 @@ public class ColumnDataClassifierWrapTest {
 	}
 	
 	@Test
+	public void testGetSentenceCategory() throws Exception {
+		props.put("-prop", PATH + "phrases.prop");
+		testObject = new ColumnDataClassifierWrap(props, TrainingSet.TRAINING_SET_PHRASES);
+		assertEquals("Determination", testObject.getSentenceCategory(
+				"The determination in John is incredible, he never gives up."));
+	}
+	
+	@Test
 	public void testClassifySentence_trainByStringArray() throws Exception {
 		props.put("-prop", PATH + "phrases.prop");
 		testObject = new ColumnDataClassifierWrap(props, TrainingSet.TRAINING_SET_PHRASES);
