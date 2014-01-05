@@ -58,17 +58,17 @@ public class TrainingSet {
 		{"3", "I was surprised that Sarah did not remain composed after she was fired."},
 		{"3", "Remaining composed was the focus of the motivational speaker."},
 		{"3", "He accepted their problems with composure and she with equanimity."}, 
-		{"5", "quickly saw the problem with the project"},
-		{"5", "did a good job at determining that the system was not performing correctly"},
-		{"5", "perceived that there were problems that were not being addressed"},
-		{"5", "was able to see that the machine was broken"},
-		{"5", "saw that the dependencies were not aligned correctly"},
-		{"5", "became aware of the problems that were plaguing the installation"},
-		{"5", "realized that the inefficiency was due to the machine design"},
-		{"5", "discerned that the team was failing to perform well enough"},
-		{"5", "identified that there was no responsible party identified"},
-		{"5", "comprehended that the nature of the problem was machine based"},
-		{"5", "understood that there were too many steps in the process"}
+		{"5", "Mike quickly saw the problem with the project"},
+		{"5", "John did a good job at determining that the system was not performing correctly"},
+		{"5", "Lacy perceived that there were problems that were not being addressed"},
+		{"5", "Barb was able to see that the machine was broken"},
+		{"5", "William saw that the dependencies were not aligned correctly"},
+		{"5", "Dave became aware of the problems that were plaguing the installation"},
+		{"5", "Jess realized that the inefficiency was due to the machine design"},
+		{"5", "Steve discerned that the team was failing to perform well enough"},
+		{"5", "Greg identified that there was no responsible party identified"},
+		{"5", "Geena comprehended that the nature of the problem was machine based"},
+		{"5", "Chevy understood that there were too many steps in the process"}
 		};
 
 }
