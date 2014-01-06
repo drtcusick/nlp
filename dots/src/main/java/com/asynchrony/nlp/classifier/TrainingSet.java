@@ -6,7 +6,8 @@ public class TrainingSet {
 	public static final String TRAINING_CATEGORIES[][] = 
 		{{"-1", UNKNOWN}, {"0", UNKNOWN}, 
 		{"1", "Thinking Strategically"}, {"2", "Determination"}, 
-		{"3", "Composed"}, {"4", "Visualization"}, {"5", "Problems Perceiving Them"}};
+		{"3", "Composed"}, {"4", "Visualization"}, {"5", "Problems Perceiving Them"},
+		{"6", "Creativity"}, {"7", "Integrity"}, {"8", "Motivating Others"}};
 	
 	
 	public static final String TRAINING_SET_PHRASES[][] = 
@@ -68,7 +69,32 @@ public class TrainingSet {
 		{"5", "Steve discerned that the team was failing to perform well enough"},
 		{"5", "Greg identified that there was no responsible party identified"},
 		{"5", "Geena comprehended that the nature of the problem was machine based"},
-		{"5", "Chevy understood that there were too many steps in the process"}
+		{"5", "Chevy understood that there were too many steps in the process"},
+		{"6", "Mary came up with a unique solution to the problem"},
+		{"6", "David was thinking out of the box when he solved the issue"},
+		{"6", "Susan came up with a creative process to fix the machine"},
+		{"6", "Thomas thought of an inventive solution"},
+		{"6", "Harry was really resourceful in his quick response to the work overflow"},
+		{"6", "The way that Donald came up with the design was inspired"},
+		{"6", "Holly's decision to use excel to determine the cause of the issue was creative"},
+		{"6", "Sammy creatively designed the updated machine"},
+		{"7", "Milton showed great integrity when he turned down the untoward offer"},
+		{"7", "Harry honestly explained the truth of the situation"},
+		{"7", "Martin acted honorably when deailng with the situation"},
+		{"7", "Sally's proposal showed honesty in understanding her own weaknesses"},
+		{"7", "Harold was sincere in his description of his beliefs"},
+		{"7", "Mary was virtuous in her attempts to describe the situation"},
+		{"7", "Phil acted with integrity"},
+		{"7", "Steve showed integrity when he resigned from the position"},
+		{"8", "Michael failed to motivate his team"},
+		{"8", "David lead his project team successfully"},
+		{"8", "Thomas inspired his group to complete the project on time"},
+		{"8", "Shelly spurred on the members to greater success"},
+		{"8", "Susan motivated her team well"},
+		{"8", "Brian was unable to motivate the team"},
+		{"8", "The failure of Sally to provide motivation for the effort was why the project failed"},
+		{"8", "Lilly was inspiring during the discussions"},
+		{"8", "Phil couldn't motivate his project team"}
 		};
 
 }
