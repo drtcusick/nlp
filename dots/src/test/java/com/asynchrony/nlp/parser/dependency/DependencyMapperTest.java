@@ -46,7 +46,6 @@ public class DependencyMapperTest {
 			b.append(dep.getRelationship() + ":  ");
 			b.append(dep.getParentIndex() + " " + dep.getParentWord());
 			b.append("    " + dep.getDependentIndex() + " " + dep.getDependentWord());
-			System.out.println("TWC      " + b.toString());
 		}
 	}
 	

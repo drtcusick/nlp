@@ -103,7 +103,6 @@ public class SentenceParser {
 				bestFit = dep;
 				bestIndex = dep.getDependentIndex();
 			}
-//			System.out.println("TWC  " + dep.getDependentWord() + " " + dep.getParentWord() + " " + dep.getDependentIndex() );
 		}
 		return bestFit.getDependentWord();
 	}

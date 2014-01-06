@@ -81,7 +81,6 @@ public class ColumnDataClassifierWrap {
 		String category = split[0];
 		String probability = split[1];
 		String categoryStr = categories.get(category);
-		System.out.println("TWC category and probability = " + category + " --- " + categoryStr + " --- " + probability);
 		return new CategoryResult(category, categoryStr, probability);
 	}
 	
@@ -91,7 +90,6 @@ public class ColumnDataClassifierWrap {
 
 	private void testFromFile() {
 		String testFile = cdc.globalFlags.testFile;
-		System.out.println("TWC testFile = " + testFile);
 		if (testFile != null)
 			cdc.testClassifier(testFile);
 	}
@@ -101,7 +99,7 @@ public class ColumnDataClassifierWrap {
 		try {
 			cdc.trainClassifierFromList(lines);
 		} catch (IOException e) {
-			System.out.println("TWC OOPS we threw an exception training.");
+			System.out.println("ERROR: we threw an exception training.");
 			e.printStackTrace();
 		}
 	}
@@ -111,7 +109,7 @@ public class ColumnDataClassifierWrap {
 		try {
 			trainClassifier = cdc.trainClassifierFromFile();
 		} catch (IOException e) {
-			System.out.println("TWC OOPS we threw an exception training.");
+			System.out.println("ERROR: we threw an exception training.");
 			e.printStackTrace();
 		}
 	}

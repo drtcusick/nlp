@@ -21,16 +21,16 @@ public class TrainingSetTest {
 	public void testClassifySentence_allFromTrainingSet() throws Exception {
 		props.put("-prop", PATH + "phrases.prop");
 		StringBuilder results = new StringBuilder();
-		int count = 0;
-		for (int i = 0; i < TrainingSet.TRAINING_SET_PHRASES.length; i++) {
-			results.append("\n").append(testSingleSentence(i, TrainingSet.TRAINING_SET_PHRASES));
-		}
-		
-		System.out.println("TWC TWC TWC TWC TWC TWC TWC TWC TWC ");
+		// Remove comment to test results for entire training set.  Takes some time...
+//		for (int i = 0; i < TrainingSet.TRAINING_SET_PHRASES.length; i++) {
+//			results.append("\n").append(testSingleSentence(i, TrainingSet.TRAINING_SET_PHRASES));
+//		}
+		results.append("            TESTING COMPLETE TRAINING SET TURNED OFF.          ");
+		System.out.println("------------ ALL SENTENCES IN TRAINING SET RESULTS --------- ");
 		System.out.println("\n");
 		System.out.println(results.toString());
 		System.out.println("\n");
-		System.out.println("TWC TWC TWC TWC TWC TWC TWC TWC TWC ");
+		System.out.println("------------ ALL SENTENCES IN TRAINING SET RESULTS --------- ");
 	}
 
 	private String testSingleSentence(int testNum, String[][] trainingSetPhrases) {
