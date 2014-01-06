@@ -1,8 +1,0 @@
-package com.asynchrony.nlp.classifier;
-
-public class PhraseClassifier {
-	public void runClassifier() {
-		ColumnDataClassifier classifer;
-		
-	}
-}
