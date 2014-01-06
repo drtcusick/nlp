@@ -3,16 +3,6 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="lib/ejml-0.23.jar"/>
-	<classpathentry kind="lib" path="lib/joda-time-2.1-sources.jar"/>
-	<classpathentry kind="lib" path="lib/joda-time.jar"/>
-	<classpathentry kind="lib" path="lib/jollyday-0.4.7-sources.jar"/>
-	<classpathentry kind="lib" path="lib/jollyday.jar"/>
-	<classpathentry kind="lib" path="lib/stanford-corenlp-3.3.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/stanford-corenlp-3.3.0-models.jar"/>
-	<classpathentry kind="lib" path="lib/stanford-corenlp-3.3.0-sources.jar"/>
-	<classpathentry kind="lib" path="lib/stanford-corenlp-3.3.0.jar"/>
-	<classpathentry kind="lib" path="lib/xom.jar"/>
 	<classpathentry kind="lib" path="lib/stanford-corenlp/stanford-corenlp-3.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/stanford-corenlp/ejml-0.23.jar"/>
 	<classpathentry kind="lib" path="lib/stanford-corenlp/stanford-corenlp-3.3.0-models.jar"/>
