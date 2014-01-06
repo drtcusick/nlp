@@ -22,10 +22,10 @@ public class TrainingSetTest {
 		props.put("-prop", PATH + "phrases.prop");
 		StringBuilder results = new StringBuilder();
 		// Remove comment to test results for entire training set.  Takes some time...
-		for (int i = 0; i < TrainingSet.TRAINING_SET_PHRASES.length; i++) {
-			results.append("\n").append(testSingleSentence(i, TrainingSet.TRAINING_SET_PHRASES));
-		}
-//		results.append("            TESTING COMPLETE TRAINING SET TURNED OFF.          ");
+//		for (int i = 0; i < TrainingSet.TRAINING_SET_PHRASES.length; i++) {
+//			results.append("\n").append(testSingleSentence(i, TrainingSet.TRAINING_SET_PHRASES));
+//		}
+		results.append("            TESTING COMPLETE TRAINING SET TURNED OFF.          ");
 		System.out.println("------------ ALL SENTENCES IN TRAINING SET RESULTS --------- ");
 		System.out.println("\n");
 		System.out.println(results.toString());
