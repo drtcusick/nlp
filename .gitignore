@@ -3,3 +3,5 @@ sentiment/lib/*.jar
 .metadata/*
 .metadata/**/*
 .metadata/.plugins
+*.class
+*.jar
