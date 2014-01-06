@@ -71,21 +71,21 @@ public class ColumnDataClassifierWrapTest {
 				"Visualization and planning explain the success of this project.").getCategoryText());
 	}
 	
-	@Test
-	public void testRunClassifier_ExternalizedWithTestFile() throws IOException
-	{
-		props.put("-prop", PATH + "phrases.prop");
-		testObject = new ColumnDataClassifierWrap(props, null);
-		testObject.runTestFromParameterSpecifiedFile();
-	}
+//	@Test
+//	public void testRunClassifier_ExternalizedWithTestFile() throws IOException
+//	{
+//		props.put("-prop", PATH + "phrases.prop");
+//		testObject = new ColumnDataClassifierWrap(props, null);
+//		testObject.runTestFromParameterSpecifiedFile();
+//	}
 	
-	@Test
-	public void testRunClassifier_Phrases() throws IOException
-	{
-		props.put("-prop", PATH + "phrases.prop");
-		testObject = new ColumnDataClassifierWrap(props, null);
-		testObject.runOriginalClassifierMain();
-	}
+//	@Test
+//	public void testRunClassifier_Phrases() throws IOException
+//	{
+//		props.put("-prop", PATH + "phrases.prop");
+//		testObject = new ColumnDataClassifierWrap(props, null);
+//		testObject.runOriginalClassifierMain();
+//	}
 	
 	@Test
 	public void testRunClassifier_Cheese() throws IOException

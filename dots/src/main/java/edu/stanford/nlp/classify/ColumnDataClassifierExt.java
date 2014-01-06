@@ -704,8 +704,8 @@ public class ColumnDataClassifierExt extends ColumnDataClassifier {
 				classifier = (Classifier) ErasureUtils.uncheckedCast(ois
 						.readObject());
 				myFlags = (Flags[]) (Flags[]) ois.readObject();
-				if (!$assertionsDisabled && flags.length <= 0)
-					throw new AssertionError();
+//				if (!$assertionsDisabled && flags.length <= 0)
+//					throw new AssertionError();
 				System.err.println("Done.");
 			} catch (Exception e) {
 				throw new RuntimeIOException((new StringBuilder())
