@@ -10,6 +10,8 @@
 <fullyQualifiedTypeName name="edu.stanford.nlp.classify.LinearClassifierFactory"/>
 <fullyQualifiedTypeName name="edu.stanford.nlp.classify.Dataset"/>
 <fullyQualifiedTypeName name="org.junit.Before"/>
-<fullyQualifiedTypeName name="java.lang.StringBuilder"/>
 <fullyQualifiedTypeName name="org.junit.Test"/>
+<fullyQualifiedTypeName name="com.asynchrony.nlp.dots.DotMain"/>
+<fullyQualifiedTypeName name="com.asynchrony.nlp.classifier.TrainingSet"/>
+<fullyQualifiedTypeName name="java.lang.StringBuilder"/>
 </qualifiedTypeNameHistroy>

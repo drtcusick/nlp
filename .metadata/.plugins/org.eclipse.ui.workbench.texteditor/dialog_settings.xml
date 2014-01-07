@@ -13,17 +13,23 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wholeword"/>
-		<item value="MyColumnDataClassifier" key="selection"/>
+		<item value="testObject" key="selection"/>
 		<list key="findhistory">
+			<item value="testObject"/>
+			<item value="},"/>
+			<item value="8&#x09;"/>
+			<item value="7&#x09;"/>
+			<item value="6&#x09;"/>
 			<item value="ColumnDataClassifier"/>
 			<item value="public MyGeneralDataset"/>
 			<item value="RVFDataset"/>
-			<item value="GeneralDataset"/>
-			<item value="MISSING_BLOCK_LABEL_104"/>
-			<item value="getDatum"/>
-			<item value="size"/>
 		</list>
 		<list key="replacehistory">
+			<item value="debugObject"/>
+			<item value="&quot;},"/>
+			<item value="{&quot;8&quot;, &quot;"/>
+			<item value="{&quot;7&quot;, &quot;"/>
+			<item value="{&quot;6&quot;, &quot;"/>
 			<item value="MyColumnDataClassifier"/>
 			<item value="MyRVFDataset"/>
 			<item value="MyGeneralDataset"/>
