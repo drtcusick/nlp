@@ -2,6 +2,7 @@ Servers
 dots-nlp-without-libs
 sentiment/lib/stanford-corenlp-2.3.0-models.jar
 sentiment/lib/*.jar
+.metadata/.plugins/org.eclipse.jdt.core/*.index
 .metadata/.plugins/org.eclipse.core.resources/.history/*
 .metadata/.plugins/org.eclipse.core.resources/.history/**/*
 .metadata/.plugins/org.eclipse.core.resources/.history/**/**/*
