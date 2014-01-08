@@ -14,4 +14,5 @@
 <fullyQualifiedTypeName name="com.asynchrony.nlp.dots.DotMain"/>
 <fullyQualifiedTypeName name="com.asynchrony.nlp.classifier.TrainingSet"/>
 <fullyQualifiedTypeName name="java.lang.StringBuilder"/>
+<fullyQualifiedTypeName name="java.lang.Character"/>
 </qualifiedTypeNameHistroy>
