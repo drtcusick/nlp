@@ -43,6 +43,14 @@ public class ColumnDataClassifierWrapTest {
 				"Composure was maintained by all as the bad news was delivered.").getCategory());
 		assertEquals("4", testObject.classifySentence(
 				"Visualization and planning explain the success of this project.").getCategory());
+		assertEquals("5", testObject.classifySentence(
+				"Dave became aware of the problems that were plaguing the installation").getCategory());
+		assertEquals("6", testObject.classifySentence(
+				"Mary came up with a unique solution to the problem.").getCategory());
+		assertEquals("7", testObject.classifySentence(
+				"Martin acted honorably when deailng with the situation.").getCategory());
+		assertEquals("8", testObject.classifySentence(
+				"Susan motivated her team well.").getCategory());
 	}
 	
 	@Test
