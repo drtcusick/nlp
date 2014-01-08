@@ -1,5 +1,6 @@
 package com.asynchrony.nlp.dots;
 
+import com.asynchrony.nlp.classifier.CategoryResult;
 import com.asynchrony.nlp.classifier.ColumnDataClassifierWrap;
 import com.asynchrony.nlp.classifier.Properties;
 import com.asynchrony.nlp.classifier.TrainingSet;
@@ -12,16 +13,32 @@ public class DotMain {
 		StringBuilder b = new StringBuilder();
 		b.append("Input:  ").append(sentence).append("\n\n");
 		b.append("Subject:  ").append(getSubject(sentence)).append("\n");
-		b.append("Category:  ").append(getCategory(sentence)).append("\n");
+		b.append("Category:  ").append(getCategory(sentence, false)).append("\n");
 		b.append("Sentiment:  ").append(getSentiment(sentence));
 		return b.toString();
 	}
 	
-	protected String getCategory(String sentence)
+	public String processSentenceWithProbability(String sentence) {
+		StringBuilder b = new StringBuilder();
+		b.append("Input:  ").append(sentence).append("\n\n");
+		b.append("Subject:  ").append(getSubject(sentence)).append("\n");
+		b.append("Category:  ").append(getCategory(sentence, true)).append("\n");
+		b.append("Sentiment:  ").append(getSentiment(sentence));
+		return b.toString();
+	}
+	
+	protected String getCategory(String sentence, boolean withProb)
 	{
 		ColumnDataClassifierWrap classifier = new ColumnDataClassifierWrap(Properties.PROPS_PHRASES, TrainingSet.TRAINING_SET_PHRASES);
-		String category = classifier.getSentenceCategory(sentence);
-		return category;
+		CategoryResult category = classifier.classifySentence(sentence);
+		if (withProb)
+		{
+			return category.getCategoryText() + " - " + category.getProbability();
+		}
+		else
+		{
+			return category.getCategoryText();
+		}
 	}
 	
 	protected String getSubject(String sentence)

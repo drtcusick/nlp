@@ -36,4 +36,11 @@ public class DotMainTest {
 		String result = testObject.processSentence(TEST_SENTENCE);
 		System.out.println(result);
 	}
+	
+	@Test
+	public void testMainWithProb()
+	{
+		String result = testObject.processSentenceWithProbability(TEST_SENTENCE);
+		System.out.println(result);
+	}
 }
