@@ -7,24 +7,68 @@ import com.asynchrony.nlp.classifier.TrainingSet;
 import com.asynchrony.nlp.parser.SentenceParser;
 import com.asynchrony.nlp.sentiment.CustomSentimentPipeline;
 
-public class DotMain {
+public class DotMain implements IDotCreatorListener {
+
+	private Dot dot = null;
 
 	public String processSentence(String sentence) {
-		StringBuilder b = new StringBuilder();
-		b.append("Input:  ").append(sentence).append("\n\n");
-		b.append("Subject:  ").append(getSubject(sentence)).append("\n");
-		b.append("Category:  ").append(getCategory(sentence, false)).append("\n");
-		b.append("Sentiment:  ").append(getSentiment(sentence));
-		return b.toString();
+		Dot dot = getDot(sentence, false);
+		return formatResult(sentence, dot);
 	}
 	
 	public String processSentenceWithProbability(String sentence) {
+		Dot dot = getDot(sentence, true);
+		return formatResult(sentence, dot);
+	}
+	
+	public String processSentenceThreaded(String sentence, boolean withProbability)
+	{
+		Dot createDotThreaded = createDotThreaded(sentence, withProbability);
+		return formatResult(sentence, createDotThreaded);
+	}
+	
+	private String formatResult(String sentence, Dot dotToFormat) {
 		StringBuilder b = new StringBuilder();
 		b.append("Input:  ").append(sentence).append("\n\n");
-		b.append("Subject:  ").append(getSubject(sentence)).append("\n");
-		b.append("Category:  ").append(getCategory(sentence, true)).append("\n");
-		b.append("Sentiment:  ").append(getSentiment(sentence));
+		b.append("Subject:  ").append(dotToFormat.getSubject()).append("\n");
+		b.append("Category:  ").append(dotToFormat.getCategory()).append("\n");
+		b.append("Sentiment:  ").append(dotToFormat.getSentiment());
 		return b.toString();
+	}
+	
+	protected Dot createDotThreaded(String sentence, boolean withProb)
+	{
+		this.dot = null;
+		DotCreator creator = new DotCreator(this, sentence, withProb);
+		creator.launchDotCreation();
+		while (this.dot == null) {
+			try {
+				Thread.sleep(250);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		return this.dot;
+	}
+	
+	protected Dot getDot(String sentence, boolean withProb)
+	{
+		long start = System.currentTimeMillis();
+		String subject = getSubject(sentence);
+		long subjectDuration = System.currentTimeMillis() - start;
+		start = System.currentTimeMillis();
+		String category = getCategory(sentence, withProb);
+		long categoryDuration = System.currentTimeMillis() - start;
+		start = System.currentTimeMillis();
+		String sentiment = getSentiment(sentence);
+		long sentimentDuration = System.currentTimeMillis() - start;
+		
+		
+		System.out.println("TWC subject took " + subjectDuration);
+		System.out.println("TWC category took " + categoryDuration);
+		System.out.println("TWC sentiment took " + sentimentDuration);
+		
+		return new Dot(subject, category, sentiment);
 	}
 	
 	protected String getCategory(String sentence, boolean withProb)
@@ -85,5 +129,10 @@ public class DotMain {
 			sentence = args[1];
 		}
 		return sentence;
+	}
+
+	@Override
+	public void completeDotCreated(Dot dot) {
+		this.dot  = dot;
 	}
 }

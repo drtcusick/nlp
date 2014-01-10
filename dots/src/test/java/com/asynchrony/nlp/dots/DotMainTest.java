@@ -1,5 +1,7 @@
 package com.asynchrony.nlp.dots;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
 /*
@@ -31,6 +33,13 @@ public class DotMainTest {
 	}
 	
 	@Test
+	public void testCreateDotThreadedWithoutProbability()
+	{
+		String result = testObject.processSentenceThreaded(TEST_SENTENCE, false);
+		System.out.println(result);
+	}
+	
+	@Test
 	public void testMain()
 	{
 		String result = testObject.processSentence(TEST_SENTENCE);
@@ -42,5 +51,13 @@ public class DotMainTest {
 	{
 		String result = testObject.processSentenceWithProbability(TEST_SENTENCE);
 		System.out.println(result);
+	}
+	
+	@Test
+	public void testGetDot() throws Exception {
+		Dot dot = testObject.getDot(TEST_SENTENCE, false);
+		assertEquals("Bob", dot.getSubject());
+		assertEquals("Problems Perceiving Them", dot.getCategory());
+		assertEquals("Neutral", dot.getSentiment());
 	}
 }
