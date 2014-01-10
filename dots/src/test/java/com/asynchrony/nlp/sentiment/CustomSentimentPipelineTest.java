@@ -50,6 +50,17 @@ public class CustomSentimentPipelineTest {
 	public void setUp() {
 		testObject = new CustomSentimentPipeline();
 	}
+	
+	@Test
+	public void testExtracingMoreInfo() throws Exception {
+		String sentence = "Steve is great.";
+		String[] sentiments = testObject.evaluateSentiment(sentence, true);
+		System.out.println("TWC sentiments.length = " + sentiments.length);
+		int i = 0;
+		for (String sentiment : sentiments) {
+			System.out.println("TWC sentiment[" + i++ + "] = " + sentiment);
+		}
+	}
 
 	@Test
 	public void testSentencesWithNoAssert() throws Exception {

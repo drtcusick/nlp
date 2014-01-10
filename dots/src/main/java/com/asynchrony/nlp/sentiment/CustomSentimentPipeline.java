@@ -29,6 +29,11 @@ public class CustomSentimentPipeline {
 
 	public String[] evaluateSentiment(String sentenceToEvaluate)
 			throws Exception {
+		return evaluateSentiment(sentenceToEvaluate, false);
+	}
+
+	public String[] evaluateSentiment(String sentenceToEvaluate, boolean outputDetails)
+			throws Exception {
 
 		// removed the following options (arg related) from the main sentiment class:
 		// sentimentModel, parserModel, file, stdin, output
@@ -47,11 +52,20 @@ public class CustomSentimentPipeline {
 			Tree tree = (Tree) sentence
 					.get(SentimentCoreAnnotations.AnnotatedTree.class);
 			System.out.println(sentence);
-
+			if (outputDetails) {
+				outputDetails(tree);
+			}
 			int sentiment = RNNCoreAnnotations.getPredictedClass(tree);
 			results.add(SentimentUtils.sentimentString(sentiment));
 		}
 		return results.toArray(new String[results.size()]);
+	}
+
+	private void outputDetails(Tree tree) {
+		System.out.println("---------------------------------------------");
+		System.out.println("                TREE VECTORS  ");
+		System.out.println("---------------------------------------------");
+		outputTreeVectors(tree, 0);
 	}
 
 	private int outputTreeVectors(Tree tree, int index) {
