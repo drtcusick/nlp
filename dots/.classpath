@@ -16,6 +16,5 @@
 	<classpathentry kind="lib" path="lib/org.hamcrest.core_1.1.0.v20090501071000.jar"/>
 	<classpathentry kind="lib" path="lib/stanford-corenlp-3.3.1-models.jar"/>
 	<classpathentry kind="lib" path="lib/stanford-corenlp-3.3.1.jar"/>
-	<classpathentry kind="lib" path="lib/stanford-corenlp-3.3.1-javadoc.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
