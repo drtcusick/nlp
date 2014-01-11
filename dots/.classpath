@@ -10,7 +10,7 @@
 	<classpathentry kind="lib" path="lib/stanford-classifier-3.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/stanford-classifier.jar"/>
 	<classpathentry kind="lib" path="lib/stanford-corenlp-3.3.0-models.jar"/>
-	<classpathentry kind="lib" path="lib/stanford-corenlp-3.3.0.jar"/>
+	<classpathentry kind="lib" path="lib/stanford-corenlp-3.3.0.jar" sourcepath="lib/stanford-corenlp-3.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/stanford-parser-3.3.0-javadoc.jar"/>
 	<classpathentry kind="lib" path="lib/stanford-parser-3.3.0-models.jar"/>
 	<classpathentry kind="lib" path="lib/stanford-parser-3.3.0-sources.jar"/>
