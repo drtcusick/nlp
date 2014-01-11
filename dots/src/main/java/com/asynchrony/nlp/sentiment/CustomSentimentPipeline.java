@@ -37,11 +37,6 @@ public class CustomSentimentPipeline {
 
 	public String[] evaluateSentiment(String sentenceToEvaluate)
 			throws Exception {
-		return evaluateSentiment(sentenceToEvaluate, false);
-	}
-
-	public String[] evaluateSentiment(String sentenceToEvaluate, boolean outputDetails)
-			throws Exception {
 
 		// removed the following options (arg related) from the main sentiment class:
 		// sentimentModel, parserModel, file, stdin, output
@@ -60,13 +55,29 @@ public class CustomSentimentPipeline {
 			Tree tree = (Tree) sentence
 					.get(SentimentCoreAnnotations.AnnotatedTree.class);
 			System.out.println(sentence);
-			if (outputDetails) {
-				outputDetails(tree);
-			}
 			int sentiment = RNNCoreAnnotations.getPredictedClass(tree);
 			results.add(sentimentString(sentiment));
 		}
 		return results.toArray(new String[results.size()]);
+	}
+	
+	public Tree[] getSentimentTree(String sentenceToEvaluate)
+			throws Exception {
+		Properties props = new Properties();
+		props.setProperty("annotators", "tokenize, ssplit, parse, sentiment");
+
+		StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
+
+		Annotation annotation = new Annotation(sentenceToEvaluate);
+		pipeline.annotate(annotation);
+
+		ArrayList<Tree> results = new ArrayList<Tree>();
+		for (CoreMap sentence : (List<CoreMap>) annotation
+				.get(CoreAnnotations.SentencesAnnotation.class)) {
+			results.add((Tree) sentence
+					.get(SentimentCoreAnnotations.AnnotatedTree.class));
+		}
+		return results.toArray(new Tree[results.size()]);
 	}
 	
 	private String sentimentString(int sentiment) {
@@ -77,62 +88,4 @@ public class CustomSentimentPipeline {
 			return SENTIMENT_NAMES[sentiment];
 	}
 	
-	
-
-	private void outputDetails(Tree tree) {
-		System.out.println("---------------------------------------------");
-		System.out.println("                TREE VECTORS  ");
-		System.out.println("---------------------------------------------");
-		outputTreeVectors(tree, 0);
-	}
-
-	private int outputTreeVectors(Tree tree, int index) {
-		if (tree.isLeaf()) {
-			return index;
-		}
-
-		System.out.print("  " + index + ":");
-		SimpleMatrix vector = RNNCoreAnnotations.getNodeVector(tree);
-		for (int i = 0; i < vector.getNumElements(); ++i) {
-			System.out.print("  " + NF.format(vector.get(i)));
-		}
-		System.out.println();
-		++index;
-		for (Tree child : tree.children()) {
-			index = outputTreeVectors(child, index);
-		}
-		return index;
-	}
-
-	private int setIndexLabels(Tree tree, int index) {
-		if (tree.isLeaf()) {
-			return index;
-		}
-
-		tree.label().setValue(Integer.toString(index));
-		++index;
-		for (Tree child : tree.children()) {
-			index = setIndexLabels(child, index);
-		}
-		return index;
-	}
-
-	private void setSentimentLabels(Tree tree) {
-		if (tree.isLeaf()) {
-			return;
-		}
-
-		for (Tree child : tree.children()) {
-			setSentimentLabels(child);
-		}
-
-		Label label = tree.label();
-		if (!(label instanceof CoreLabel)) {
-			throw new IllegalArgumentException(
-					"Required a tree with CoreLabels");
-		}
-		CoreLabel cl = (CoreLabel) label;
-		cl.setValue(Integer.toString(RNNCoreAnnotations.getPredictedClass(tree)));
-	}
-
 }

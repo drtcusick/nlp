@@ -2,10 +2,17 @@ package com.asynchrony.nlp.sentiment;
 
 import static org.junit.Assert.*;
 
+import java.io.PrintStream;
+
+import org.ejml.data.DenseMatrix64F;
+import org.ejml.data.Matrix64F;
+import org.ejml.simple.SimpleMatrix;
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.stanford.nlp.neural.rnn.RNNCoreAnnotations;
 import edu.stanford.nlp.sentiment.Evaluate;
+import edu.stanford.nlp.trees.Tree;
 
 public class CustomSentimentPipelineTest {
 
@@ -47,13 +54,31 @@ public class CustomSentimentPipelineTest {
 	
 	@Test
 	public void testExtracingMoreInfo() throws Exception {
-		String sentence = "Steve is great.";
-		String[] sentiments = testObject.evaluateSentiment(sentence, true);
-		System.out.println("TWC sentiments.length = " + sentiments.length);
-		int i = 0;
-		for (String sentiment : sentiments) {
-			System.out.println("TWC sentiment[" + i++ + "] = " + sentiment);
+		String sentence = "phenomenal fantasy best sellers";
+		Tree[] sentimentTree = testObject.getSentimentTree(sentence);
+		for (Tree tree : sentimentTree) {
+			SimpleMatrix predictions = RNNCoreAnnotations.getPredictions(tree);
+			myMatrixPrint(predictions);
 		}
+	}
+	
+	private void myMatrixPrint(SimpleMatrix mat) {
+		String s = "%6.3f ";
+		DenseMatrix64F matrix64f = mat.getMatrix();
+		String metaData = (new StringBuilder())
+				.append("Type = dense , numRows = ").append(matrix64f.numRows)
+				.append(" , numCols = ").append(matrix64f.numCols).toString();
+		StringBuilder b = new StringBuilder();
+		for (int i = 0; i < matrix64f.numRows; i++) {
+			for (int j = 0; j < matrix64f.numCols; j++)
+				b.append("\n").append(
+						String.format(s, new Object[] { Double
+								.valueOf(matrix64f.get(i, j)) }));
+
+		}
+		System.out.println("TWC myMatrixPrint gives us................");
+		System.out.println(metaData);
+		System.out.println(b);
 	}
 
 	@Test
