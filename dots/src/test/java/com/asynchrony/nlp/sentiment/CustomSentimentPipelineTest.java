@@ -56,30 +56,16 @@ public class CustomSentimentPipelineTest {
 	public void testExtracingMoreInfo() throws Exception {
 		String sentence = "phenomenal fantasy best sellers";
 		Tree[] sentimentTree = testObject.getSentimentTree(sentence);
-		for (Tree tree : sentimentTree) {
-			SimpleMatrix predictions = RNNCoreAnnotations.getPredictions(tree);
-			myMatrixPrint(predictions);
+		SimpleMatrix predictions = RNNCoreAnnotations.getPredictions(sentimentTree[0]);
+		Sentiment sentiment = testObject.getSentimentFromSimpleMatrix(predictions);
+		assertEquals("asdf", sentiment.getSentiment());
+		String[] histogram = sentiment.getHistogram();
+		int i = 0;
+		for (String val : histogram) {
+			System.out.println("    TWC val " + i++ + val);
 		}
 	}
 	
-	private void myMatrixPrint(SimpleMatrix mat) {
-		String s = "%6.3f ";
-		DenseMatrix64F matrix64f = mat.getMatrix();
-		String metaData = (new StringBuilder())
-				.append("Type = dense , numRows = ").append(matrix64f.numRows)
-				.append(" , numCols = ").append(matrix64f.numCols).toString();
-		StringBuilder b = new StringBuilder();
-		for (int i = 0; i < matrix64f.numRows; i++) {
-			for (int j = 0; j < matrix64f.numCols; j++)
-				b.append("\n").append(
-						String.format(s, new Object[] { Double
-								.valueOf(matrix64f.get(i, j)) }));
-
-		}
-		System.out.println("TWC myMatrixPrint gives us................");
-		System.out.println(metaData);
-		System.out.println(b);
-	}
 
 	@Test
 	public void testSentencesWithNoAssert() throws Exception {
@@ -91,6 +77,17 @@ public class CustomSentimentPipelineTest {
 						+ TEST_SENTENCE_NO_ASSERT[i]);
 			}
 		}
+	}
+	
+	@Test
+	public void testGetSentimentFromSimpleMatrix() throws Exception {
+		String sentence = "phenomenal fantasy best sellers";
+		Tree[] sentimentTree = testObject.getSentimentTree(sentence);
+		SimpleMatrix predictions = RNNCoreAnnotations.getPredictions(sentimentTree[0]);
+		Sentiment sentiment = testObject.getSentimentFromSimpleMatrix(predictions);
+		assertEquals("asdf", sentiment.getSentiment());
+		String[] histogram = sentiment.getHistogram();
+		assertEquals(5, histogram.length);
 	}
 
 	@Test

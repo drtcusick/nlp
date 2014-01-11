@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.ejml.data.DenseMatrix64F;
 import org.ejml.simple.SimpleMatrix;
 
 import edu.stanford.nlp.ling.CoreAnnotations;
@@ -80,6 +81,24 @@ public class CustomSentimentPipeline {
 		return results.toArray(new Tree[results.size()]);
 	}
 	
+	public Sentiment getSentimentFromSimpleMatrix(SimpleMatrix mat) {
+		String s = "%6.3f ";
+		DenseMatrix64F matrix64f = mat.getMatrix();
+		String metaData = (new StringBuilder())
+				.append("Type = dense , numRows = ").append(matrix64f.numRows)
+				.append(" , numCols = ").append(matrix64f.numCols).toString();
+		System.out.println("TWC metaData " + metaData);
+		
+		StringBuilder b = new StringBuilder();
+		for (int row = 0; row < matrix64f.numRows; row++) {
+				b.append("\n").append(
+						String.format(s, new Object[] { Double
+								.valueOf(matrix64f.get(row, 0)) }));
+		}
+		String[] histogram = null;
+		return new Sentiment("", histogram  );
+	}
+
 	private String sentimentString(int sentiment) {
 		if (sentiment < 0 || sentiment > SENTIMENT_NAMES.length)
 			return (new StringBuilder()).append("Unknown sentiment label ")
