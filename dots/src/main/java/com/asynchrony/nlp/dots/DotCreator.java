@@ -51,8 +51,6 @@ public class DotCreator {
 	}
 	
 	private void checkCompletion(String which) {
-		System.out.println("TWC Completion check from " + which);
-		System.out.println("    TWC " + subject + ", " + category + ", " + sentiment);
 		if (subject != null && category != null && sentiment != null)
 		{
 			listener.completeDotCreated(new Dot(subject, category, sentiment));
