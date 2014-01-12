@@ -55,14 +55,10 @@ public class CustomSentimentPipelineTest {
 	@Test
 	public void testExtracingMoreInfo() throws Exception {
 		String sentence = "phenomenal fantasy best sellers";
-		Sentiment sentiment = testObject.getSentimentObject(sentence);
+		Sentiment sentiment = testObject.evaluateSentiment(sentence)[0];
 		assertEquals("Positive", sentiment.getSentiment());
 		String[] histogram = sentiment.getHistogram();
-		StringBuilder b = new StringBuilder();
-		for (String val : histogram) {
-			b.append(val).append(" ");
-		}
-		System.out.println("TWC histogram:  " + histString(histogram));
+		assertHistogramSumsToOne(histogram);
 	}
 	
 
@@ -81,10 +77,11 @@ public class CustomSentimentPipelineTest {
 	@Test
 	public void testGetSentimentFromSimpleMatrix() throws Exception {
 		String sentence = "phenomenal fantasy best sellers";
-		Sentiment sentiment = testObject.getSentimentObject(sentence);
+		Sentiment sentiment = testObject.evaluateSentiment(sentence)[0];
 		assertEquals("Positive", sentiment.getSentiment());
 		String[] histogram = sentiment.getHistogram();
 		assertEquals(5, histogram.length);
+		assertHistogramSumsToOne(histogram);
 	}
 
 	@Test
@@ -129,6 +126,21 @@ public class CustomSentimentPipelineTest {
 						System.out.println(sentiments[0].getSentiment() + histString(sentiments[0].getHistogram()) + " " + testCase[i]);
 					}
 		}
+	}
+	
+	private void assertHistogramSumsToOne(String[] histogram) {
+		double total = 0f;
+		for (String value : histogram) {
+			try
+			{
+				total += Double.valueOf(value).doubleValue();
+			}
+			catch (NumberFormatException e)
+			{
+				fail("The histogram included a non-number = " + value);
+			}
+		}
+		assertEquals(1f, total, 0.01);
 	}
 
 	private String histString(String[] histogram) {

@@ -59,29 +59,6 @@ public class CustomSentimentPipeline {
 		return results.toArray(new Sentiment[results.size()]);
 	}
 	
-	public Sentiment getSentimentObject(String sentenceToEvaluate)
-			throws Exception {
-		Properties props = new Properties();
-		props.setProperty("annotators", "tokenize, ssplit, parse, sentiment");
-
-		StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
-
-		Annotation annotation = new Annotation(sentenceToEvaluate);
-		pipeline.annotate(annotation);
-
-		ArrayList<Tree> results = new ArrayList<Tree>();
-		for (CoreMap sentence : (List<CoreMap>) annotation
-				.get(CoreAnnotations.SentencesAnnotation.class)) {
-			results.add((Tree) sentence
-					.get(SentimentCoreAnnotations.AnnotatedTree.class));
-		}
-		
-		Tree tree = results.get(0);
-		String sentiment = sentimentString(RNNCoreAnnotations.getPredictedClass(tree));
-		SimpleMatrix mat = RNNCoreAnnotations.getPredictions(tree);
-		return createSentimentObject(sentiment, mat);
-	}
-	
 	public Sentiment createSentimentObject(String sentiment, SimpleMatrix mat) {
 		String s = "%6.3f ";
 		DenseMatrix64F matrix64f = mat.getMatrix();
