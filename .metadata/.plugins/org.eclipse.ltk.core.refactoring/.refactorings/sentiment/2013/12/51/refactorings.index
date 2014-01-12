@@ -1,7 +1,0 @@
-1387487314888	Rename type 'Sentiment'
-1387565393465	Extract constant 'SENTIMENT_POSITIVE'
-1387565409974	Extract constant 'SENTIMENT_NEGATIVE'
-1387565423104	Extract constant 'SENTIMENT_NEUTRAL'
-1387565660855	Rename method 'sentimentPipelineMainCode'
-1387565735125	Rename type 'FirstTest'
-1387565805084	Extract local variable 'sentiments'
