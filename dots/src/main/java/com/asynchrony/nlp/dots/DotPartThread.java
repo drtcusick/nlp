@@ -6,6 +6,7 @@ import com.asynchrony.nlp.classifier.Properties;
 import com.asynchrony.nlp.classifier.TrainingSet;
 import com.asynchrony.nlp.parser.SentenceParser;
 import com.asynchrony.nlp.sentiment.CustomSentimentPipeline;
+import com.asynchrony.nlp.sentiment.Sentiment;
 
 public class DotPartThread implements Runnable{
 	
@@ -83,10 +84,10 @@ public class DotPartThread implements Runnable{
 	{
 		String sentiment = "Unknown";
 		CustomSentimentPipeline sentimenter = new CustomSentimentPipeline();
-		String[] sentiments;
+		Sentiment[] sentiments;
 		try {
 			sentiments = sentimenter.evaluateSentiment(sentence);
-			sentiment = sentiments[0];
+			sentiment = sentiments[0].getSentiment();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

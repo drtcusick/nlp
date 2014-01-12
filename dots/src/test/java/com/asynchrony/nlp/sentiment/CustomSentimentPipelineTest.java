@@ -16,7 +16,7 @@ import edu.stanford.nlp.trees.Tree;
 
 public class CustomSentimentPipelineTest {
 
-
+	private static final boolean debugResults = true;
 	private static final String TEST_SENTENCE_VERY_POS[] = { "The movie was very good." };
 	private static final String TEST_SENTENCE_POS[] = {
 		"Jason chimed in with the most brilliant solution we have heard.",
@@ -55,25 +55,24 @@ public class CustomSentimentPipelineTest {
 	@Test
 	public void testExtracingMoreInfo() throws Exception {
 		String sentence = "phenomenal fantasy best sellers";
-		Tree[] sentimentTree = testObject.getSentimentTree(sentence);
-		SimpleMatrix predictions = RNNCoreAnnotations.getPredictions(sentimentTree[0]);
-		Sentiment sentiment = testObject.getSentimentFromSimpleMatrix(predictions);
-		assertEquals("asdf", sentiment.getSentiment());
+		Sentiment sentiment = testObject.getSentimentObject(sentence);
+		assertEquals("Positive", sentiment.getSentiment());
 		String[] histogram = sentiment.getHistogram();
-		int i = 0;
+		StringBuilder b = new StringBuilder();
 		for (String val : histogram) {
-			System.out.println("    TWC val " + i++ + val);
+			b.append(val).append(" ");
 		}
+		System.out.println("TWC histogram:  " + histString(histogram));
 	}
 	
 
 	@Test
 	public void testSentencesWithNoAssert() throws Exception {
 		for (int i = 0; i < TEST_SENTENCE_NO_ASSERT.length; i++) {
-			String[] sentiments = testObject
+			Sentiment[] sentiments = testObject
 					.evaluateSentiment(TEST_SENTENCE_NO_ASSERT[i]);
 			if (sentiments.length == 1) {
-				System.out.println(sentiments[0] + " : "
+				System.out.println(sentiments[0].getSentiment() + " : "
 						+ TEST_SENTENCE_NO_ASSERT[i]);
 			}
 		}
@@ -82,10 +81,8 @@ public class CustomSentimentPipelineTest {
 	@Test
 	public void testGetSentimentFromSimpleMatrix() throws Exception {
 		String sentence = "phenomenal fantasy best sellers";
-		Tree[] sentimentTree = testObject.getSentimentTree(sentence);
-		SimpleMatrix predictions = RNNCoreAnnotations.getPredictions(sentimentTree[0]);
-		Sentiment sentiment = testObject.getSentimentFromSimpleMatrix(predictions);
-		assertEquals("asdf", sentiment.getSentiment());
+		Sentiment sentiment = testObject.getSentimentObject(sentence);
+		assertEquals("Positive", sentiment.getSentiment());
 		String[] histogram = sentiment.getHistogram();
 		assertEquals(5, histogram.length);
 	}
@@ -123,11 +120,23 @@ public class CustomSentimentPipelineTest {
 	private void testParticularSentiment(String sentiment, String[] testCase)
 			throws Exception {
 		for (int i = 0; i < testCase.length; i++) {
-			String[] sentiments = testObject.evaluateSentiment(testCase[i]);
+			Sentiment[] sentiments = testObject.evaluateSentiment(testCase[i]);
 			assertEquals(1, sentiments.length);
 			assertEquals("Test Case [" + i + "] = " + testCase[i], sentiment,
-					sentiments[0]);
+					sentiments[0].getSentiment());
+					if (debugResults)
+					{
+						System.out.println(sentiments[0].getSentiment() + histString(sentiments[0].getHistogram()) + " " + testCase[i]);
+					}
 		}
+	}
+
+	private String histString(String[] histogram) {
+		StringBuilder b = new StringBuilder();
+		for (String val : histogram) {
+			b.append(val).append(" ");
+		}
+		return b.toString();
 	}
 
 }

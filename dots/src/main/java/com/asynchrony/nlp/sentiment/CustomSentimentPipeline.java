@@ -3,6 +3,7 @@ package com.asynchrony.nlp.sentiment;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -36,12 +37,8 @@ public class CustomSentimentPipeline {
 		PENNTREES, VECTORS, ROOT;
 	}
 
-	public String[] evaluateSentiment(String sentenceToEvaluate)
+	public Sentiment[] evaluateSentiment(String sentenceToEvaluate)
 			throws Exception {
-
-		// removed the following options (arg related) from the main sentiment class:
-		// sentimentModel, parserModel, file, stdin, output
-
 		Properties props = new Properties();
 		props.setProperty("annotators", "tokenize, ssplit, parse, sentiment");
 
@@ -50,19 +47,19 @@ public class CustomSentimentPipeline {
 		Annotation annotation = new Annotation(sentenceToEvaluate);
 		pipeline.annotate(annotation);
 
-		ArrayList<String> results = new ArrayList<String>();
+		ArrayList<Sentiment> results = new ArrayList<Sentiment>();
 		for (CoreMap sentence : (List<CoreMap>) annotation
 				.get(CoreAnnotations.SentencesAnnotation.class)) {
 			Tree tree = (Tree) sentence
 					.get(SentimentCoreAnnotations.AnnotatedTree.class);
-			System.out.println(sentence);
-			int sentiment = RNNCoreAnnotations.getPredictedClass(tree);
-			results.add(sentimentString(sentiment));
+			String sentiment = sentimentString(RNNCoreAnnotations.getPredictedClass(tree));
+			SimpleMatrix mat = RNNCoreAnnotations.getPredictions(tree);
+			results.add(createSentimentObject(sentiment, mat));
 		}
-		return results.toArray(new String[results.size()]);
+		return results.toArray(new Sentiment[results.size()]);
 	}
 	
-	public Tree[] getSentimentTree(String sentenceToEvaluate)
+	public Sentiment getSentimentObject(String sentenceToEvaluate)
 			throws Exception {
 		Properties props = new Properties();
 		props.setProperty("annotators", "tokenize, ssplit, parse, sentiment");
@@ -78,25 +75,24 @@ public class CustomSentimentPipeline {
 			results.add((Tree) sentence
 					.get(SentimentCoreAnnotations.AnnotatedTree.class));
 		}
-		return results.toArray(new Tree[results.size()]);
+		
+		Tree tree = results.get(0);
+		String sentiment = sentimentString(RNNCoreAnnotations.getPredictedClass(tree));
+		SimpleMatrix mat = RNNCoreAnnotations.getPredictions(tree);
+		return createSentimentObject(sentiment, mat);
 	}
 	
-	public Sentiment getSentimentFromSimpleMatrix(SimpleMatrix mat) {
+	public Sentiment createSentimentObject(String sentiment, SimpleMatrix mat) {
 		String s = "%6.3f ";
 		DenseMatrix64F matrix64f = mat.getMatrix();
-		String metaData = (new StringBuilder())
-				.append("Type = dense , numRows = ").append(matrix64f.numRows)
-				.append(" , numCols = ").append(matrix64f.numCols).toString();
-		System.out.println("TWC metaData " + metaData);
-		
 		StringBuilder b = new StringBuilder();
+		ArrayList<String> groupProb = new ArrayList<>();
 		for (int row = 0; row < matrix64f.numRows; row++) {
-				b.append("\n").append(
-						String.format(s, new Object[] { Double
+				groupProb.add(String.format(s, new Object[] { Double
 								.valueOf(matrix64f.get(row, 0)) }));
 		}
-		String[] histogram = null;
-		return new Sentiment("", histogram  );
+		String[] histogram = groupProb.toArray(new String[groupProb.size()]);
+		return new Sentiment(sentiment, histogram);
 	}
 
 	private String sentimentString(int sentiment) {
