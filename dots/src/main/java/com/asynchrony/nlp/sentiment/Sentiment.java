@@ -9,6 +9,12 @@ public class Sentiment {
 		this.sentiment = sentiment;
 		this.histogram = histogram;
 	}
+	
+	public static Sentiment blankSentiment() {
+		String[] list = {"0.0", "0.0", "0.0", "0.0", "0.0"};
+		return new Sentiment("Unknown", list);
+	}
+
 	public String[] getHistogram() {
 		return histogram;
 	}

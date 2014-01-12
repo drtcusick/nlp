@@ -48,7 +48,7 @@ public class DotPartThread implements Runnable{
 		}
 		else if (DotCreator.DOT_PART_SENTIMENT.equals(part))
 		{
-			parsePartSentiment();
+			parsePartSentiment(withProbability);
 		}
 		else
 		{
@@ -80,18 +80,42 @@ public class DotPartThread implements Runnable{
 		}
 	}
 	
-	private void parsePartSentiment()
+	private void parsePartSentiment(boolean withProbability)
 	{
-		String sentiment = "Unknown";
 		CustomSentimentPipeline sentimenter = new CustomSentimentPipeline();
-		Sentiment[] sentiments;
+		Sentiment[] sentiments  = {Sentiment.blankSentiment()};
 		try {
 			sentiments = sentimenter.evaluateSentiment(sentence);
-			sentiment = sentiments[0].getSentiment();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		dotCreator.setSentiment(sentiment);
+		dotCreator.setSentiment(getSentimentString(sentiments[0], withProbability));
+	}
+
+	private String getSentimentString(Sentiment sentiment,
+			boolean withProbability) {
+		StringBuilder b = new StringBuilder();
+		String sentimentStr = sentiment.getSentiment();
+		b.append(sentimentStr);
+		
+		if (withProbability)
+		{
+			b.append(" -");
+			int i = 0;
+			for (String prob : sentiment.getHistogram()) {
+				b.append(" ");
+				if (sentimentStr.equals(CustomSentimentPipeline.SENTIMENT_NAMES[i]))
+				{
+					b.append("[");
+				}
+				b.append(prob.trim());
+				if (sentimentStr.equals(CustomSentimentPipeline.SENTIMENT_NAMES[i++]))
+				{
+					b.append("]");
+				}
+			}
+		}
+		return b.toString();
 	}
 	
 

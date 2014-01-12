@@ -31,7 +31,7 @@ public class DotCreator {
 		threadSubject.run();
 		DotPartThread threadCategory = new DotPartThread(this, sentence, DOT_PART_CATEGORY, withProbability);
 		threadCategory.run();
-		DotPartThread threadSentiment = new DotPartThread(this, sentence, DOT_PART_SENTIMENT);
+		DotPartThread threadSentiment = new DotPartThread(this, sentence, DOT_PART_SENTIMENT, withProbability);
 		threadSentiment.run();
 	}
 

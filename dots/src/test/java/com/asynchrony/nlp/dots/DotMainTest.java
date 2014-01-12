@@ -13,8 +13,8 @@ stanford-classifier.jar
 stanford-classifier-3.3.0.jar
 stanford-classifier-3.3.0-javadoc.jar
 stanford-classifier-3.3.0-sources.jar
-stanford-corenlp-3.3.0.jar
-stanford-corenlp-3.3.0-models.jar
+stanford-corenlp-3.3.1.jar
+stanford-corenlp-3.3.1-models.jar
 stanford-parser.jar
 stanford-parser-3.3.0-javadoc.jar
 stanford-parser-3.3.0-models.jar
@@ -23,7 +23,7 @@ stanford-parser-3.3.0-sources.jar
 */
 public class DotMainTest {
 
-	private static final String TEST_SENTENCE = "Bob was able to see that the machine was broken";
+	private static final String TEST_SENTENCE = "Luke was able to visualize the dark side.s";
 	private DotMain testObject;
 	
 	@Before
@@ -33,9 +33,9 @@ public class DotMainTest {
 	}
 	
 	@Test
-	public void testCreateDotThreadedWithoutProbability()
+	public void testCreateDotThreadedWithProbability()
 	{
-		String result = testObject.processSentenceThreaded(TEST_SENTENCE, false);
+		String result = testObject.processSentenceThreaded(TEST_SENTENCE, true);
 		System.out.println(result);
 	}
 	
