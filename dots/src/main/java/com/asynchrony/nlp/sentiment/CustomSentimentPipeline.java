@@ -35,11 +35,6 @@ public class CustomSentimentPipeline {
 	private static final NumberFormat NF = new DecimalFormat("0.0000");
 	private CustomSentimentMapper customMapper;
 
-	static enum Output {
-		PENNTREES, VECTORS, ROOT;
-	}
-
-	
 	public CustomSentimentPipeline(CustomSentimentMapper customMapper)
 	{
 		this.customMapper = customMapper;

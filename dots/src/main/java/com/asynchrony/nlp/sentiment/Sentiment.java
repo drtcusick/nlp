@@ -31,15 +31,9 @@ public class Sentiment {
 	public String[] getHistogram() {
 		return histogram;
 	}
-	public void setHistogram(String[] histogram) {
-		this.histogram = histogram;
-	}
+	
 	public String getSentiment() {
 		return sentiment;
 	}
-	public void setSentiment(String sentiment) {
-		this.sentiment = sentiment;
-	}
-	
 	
 }

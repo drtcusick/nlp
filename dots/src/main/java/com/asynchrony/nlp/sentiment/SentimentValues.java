@@ -65,41 +65,17 @@ public class SentimentValues {
 		return sentimentStr;
 	}
 
-
-	public void setSentimentStr(String sentimentStr) {
-		this.sentimentStr = sentimentStr;
-	}
-
-
 	public Sentiment getSentiment() {
 		return sentiment;
 	}
-
-
-	public void setSentiment(Sentiment sentiment) {
-		this.sentiment = sentiment;
-	}
-
 
 	public double getVeryNegative() {
 		return veryNegative;
 	}
 
-
-	public void setVeryNegative(double veryNegative) {
-		this.veryNegative = veryNegative;
-	}
-
-
 	public double getNegative() {
 		return negative;
 	}
-
-
-	public void setNegative(double negative) {
-		this.negative = negative;
-	}
-
 
 	public double getNeutral() {
 		return neutral;
@@ -115,23 +91,8 @@ public class SentimentValues {
 		return positive;
 	}
 
-
-	public void setPositive(double positive) {
-		this.positive = positive;
-	}
-
-
 	public double getVeryPositive() {
 		return veryPositive;
 	}
-
-
-	public void setVeryPositive(double veryPositive) {
-		this.veryPositive = veryPositive;
-	}
-	
-	
-	
-	
 
 }

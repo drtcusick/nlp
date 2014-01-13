@@ -119,9 +119,25 @@ public class CustomSentimentPipelineTest {
 		testParticularSentiment(CustomSentimentPipeline.SENTIMENT_NEUTRAL, WRONG_SENTENCE_NEUTRAL);
 	}
 	
+	@Test
+	public void testNeutralSentences() throws Exception {
+		testObject = new CustomSentimentPipeline(new CustomSentimentMapper(0.03f));
+		String neutralSent[] = {
+				"Lee was thinking strategically when he organized our new digital Kanban board.",
+				"Ryan was thinking strategically when he took the initiative to learn a new technology.",
+				"David was thinking out of the box when he solved the issue",
+				"Martin acted honorably when dealing with the situation" };
+		StringBuilder b = new StringBuilder();
+		for (String sentence : neutralSent) {
+			Sentiment[] sentiment = testObject.evaluateSentiment(sentence);
+			b.append(sentiment[0].getSentiment() + "|" + sentence + "\n");
+		}
+		System.out.println(b.toString());
+	}
+	
 //	@Test
 //	public void testAllTrainingSet() throws Exception {
-//		testObject = new CustomSentimentPipeline(null);
+//		testObject = new CustomSentimentPipeline(new CustomSentimentMapper(0.03f));
 //		String[][] trainingSetPhrases = TrainingSet.TRAINING_SET_PHRASES;
 //		StringBuilder b = new StringBuilder();
 //		for (String[] sentence : trainingSetPhrases) {
