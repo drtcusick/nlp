@@ -83,7 +83,7 @@ public class DotPartThread implements Runnable{
 	
 	private void parsePartSentiment(boolean withProbability)
 	{
-		CustomSentimentPipeline sentimenter = new CustomSentimentPipeline(new CustomSentimentMapper());
+		CustomSentimentPipeline sentimenter = new CustomSentimentPipeline(new CustomSentimentMapper(0.1f));
 		Sentiment[] sentiments  = {Sentiment.blankSentiment()};
 		try {
 			sentiments = sentimenter.evaluateSentiment(sentence);

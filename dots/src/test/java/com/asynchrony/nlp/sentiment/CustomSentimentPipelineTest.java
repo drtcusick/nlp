@@ -10,6 +10,8 @@ import org.ejml.simple.SimpleMatrix;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.asynchrony.nlp.classifier.TrainingSet;
+
 import edu.stanford.nlp.neural.rnn.RNNCoreAnnotations;
 import edu.stanford.nlp.sentiment.Evaluate;
 import edu.stanford.nlp.trees.Tree;
@@ -48,7 +50,7 @@ public class CustomSentimentPipelineTest {
 			"I don't know half of you half as well as I should like, and I like less than half of you half as well as you deserve" };
 
 	private CustomSentimentPipeline testObject;
-	private CustomSentimentMapper customSentimentMapper = new CustomSentimentMapper();
+	private CustomSentimentMapper customSentimentMapper = new CustomSentimentMapper(0.1f);
 
 	@Before
 	public void setUp() {
@@ -115,6 +117,18 @@ public class CustomSentimentPipelineTest {
 	@Test
 	public void evaluateSentiment_Wrongfully_Neutral() throws Exception {
 		testParticularSentiment(CustomSentimentPipeline.SENTIMENT_NEUTRAL, WRONG_SENTENCE_NEUTRAL);
+	}
+	
+	@Test
+	public void testAllTrainingSet() throws Exception {
+		testObject = new CustomSentimentPipeline(new CustomSentimentMapper(0.01f));
+		String[][] trainingSetPhrases = TrainingSet.TRAINING_SET_PHRASES;
+		StringBuilder b = new StringBuilder();
+		for (String[] sentence : trainingSetPhrases) {
+			Sentiment[] sentiment = testObject.evaluateSentiment(sentence[1]);
+			b.append(sentiment[0].getSentiment() + "  " + sentence[1] + "\n");
+		}
+		System.out.println(b.toString());
 	}
 	
 	private void testParticularSentiment(String sentiment, String[] testCase)

@@ -2,9 +2,21 @@ package com.asynchrony.nlp.sentiment;
 
 public class CustomSentimentMapper {
 	
-	private static final double SKEW_TRESHOLD_TO_CHANGE = 0.1f;
-	
+	private static final double DEFAULT_SKEW_TRESHOLD = 0.1f;
 	private static final double REDUCE_NEUTRAL_WEIGHTS[] = {-2f, -1f, 0f, 1f, 2f};
+	
+	private double skewThreshold = DEFAULT_SKEW_TRESHOLD;
+	
+	
+	public CustomSentimentMapper()
+	{
+		this.skewThreshold  = DEFAULT_SKEW_TRESHOLD;
+	}
+
+	public CustomSentimentMapper(double skewThreshold)
+	{
+		this.skewThreshold  = skewThreshold;
+	}
 	
 	public Sentiment adjustRawSentiment(Sentiment rawSentiment) {
 		if (!CustomSentimentPipeline.SENTIMENT_NEUTRAL.equals(rawSentiment.getSentiment()))
@@ -17,12 +29,11 @@ public class CustomSentimentMapper {
 
 	private Sentiment reduceNeutrals(SentimentValues sentVals) {
 		double total = getWeightedTotal(sentVals);
-		System.out.println("TWC total = " + total);
-		if (total < -SKEW_TRESHOLD_TO_CHANGE)
+		if (total < -skewThreshold)
 		{
 			return changeSentiment(CustomSentimentPipeline.SENTIMENT_NEGATIVE, sentVals.getSentiment());
 		}
-		else if (total > SKEW_TRESHOLD_TO_CHANGE)
+		else if (total > skewThreshold)
 		{
 			return changeSentiment(CustomSentimentPipeline.SENTIMENT_POSITIVE, sentVals.getSentiment());
 		}

@@ -63,9 +63,18 @@ public class CustomSentimentPipeline {
 			String sentiment = sentimentString(RNNCoreAnnotations.getPredictedClass(tree));
 			SimpleMatrix mat = RNNCoreAnnotations.getPredictions(tree);
 			Sentiment rawSentiment = createSentimentObject(sentiment, mat);
-			results.add(customMapper.adjustRawSentiment(rawSentiment));
+			results.add(adjustSentiment(rawSentiment));
 		}
 		return results.toArray(new Sentiment[results.size()]);
+	}
+	
+	private Sentiment adjustSentiment(Sentiment rawSentiment)
+	{
+		if (customMapper == null)
+		{
+			return rawSentiment;
+		}
+		return customMapper.adjustRawSentiment(rawSentiment);
 	}
 	
 	public Sentiment createSentimentObject(String sentiment, SimpleMatrix mat) {
