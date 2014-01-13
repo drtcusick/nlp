@@ -13,19 +13,20 @@ public class DotMain implements IDotCreatorListener {
 
 	private Dot dot = null;
 
-	public String processSentence(String sentence) {
-		Dot dot = getDot(sentence, false);
+	public String processSentence(CustomSentimentMapper sentimentMapper, String sentence) {
+		Dot dot = getDot(sentimentMapper, sentence, false);
 		return formatResult(sentence, dot);
 	}
 	
-	public String processSentenceWithProbability(String sentence) {
-		Dot dot = getDot(sentence, true);
+	public String processSentenceWithProbability(CustomSentimentMapper sentimentMapper, String sentence) {
+		Dot dot = getDot(sentimentMapper, sentence, true);
 		return formatResult(sentence, dot);
 	}
 	
-	public String processSentenceThreaded(String sentence, boolean withProbability)
+	public String processSentenceThreaded(CustomSentimentMapper sentimentMapper, 
+			String sentence, boolean withProbability)
 	{
-		Dot createDotThreaded = createDotThreaded(sentence, withProbability);
+		Dot createDotThreaded = createDotThreaded(sentimentMapper, sentence, withProbability);
 		return formatResult(sentence, createDotThreaded);
 	}
 	
@@ -38,10 +39,11 @@ public class DotMain implements IDotCreatorListener {
 		return b.toString();
 	}
 	
-	protected Dot createDotThreaded(String sentence, boolean withProb)
+	protected Dot createDotThreaded(CustomSentimentMapper sentimentMapper, 
+			String sentence, boolean withProb)
 	{
 		this.dot = null;
-		DotCreator creator = new DotCreator(this, sentence, withProb);
+		DotCreator creator = new DotCreator(this, sentimentMapper, sentence, withProb);
 		creator.launchDotCreation();
 		while (this.dot == null) {
 			try {
@@ -53,11 +55,11 @@ public class DotMain implements IDotCreatorListener {
 		return this.dot;
 	}
 	
-	protected Dot getDot(String sentence, boolean withProb)
+	protected Dot getDot(CustomSentimentMapper sentimentMapper, String sentence, boolean withProb)
 	{
 		String subject = getSubject(sentence);
 		String category = getCategory(sentence, withProb);
-		String sentiment = getSentiment(sentence);
+		String sentiment = getSentiment(sentimentMapper, sentence);
 		
 		return new Dot(subject, category, sentiment);
 	}
@@ -83,10 +85,10 @@ public class DotMain implements IDotCreatorListener {
 		return subject;
 	}
 
-	protected String getSentiment(String sentence)
+	protected String getSentiment(CustomSentimentMapper sentimentMapper, String sentence)
 	{
 		String sentiment = "Unknown";
-		CustomSentimentPipeline sentimenter = new CustomSentimentPipeline(new CustomSentimentMapper());
+		CustomSentimentPipeline sentimenter = new CustomSentimentPipeline(sentimentMapper);
 		Sentiment[] sentiments;
 		try {
 			sentiments = sentimenter.evaluateSentiment(sentence);
@@ -101,7 +103,8 @@ public class DotMain implements IDotCreatorListener {
 	{
 		String sentence = getInputSentence(args);
 		DotMain main = new DotMain();
-		String result = main.processSentence(sentence);
+		CustomSentimentMapper sentimentMapper = new CustomSentimentMapper();
+		String result = main.processSentence(sentimentMapper, sentence);
 		System.out.println(result);
 	}
 

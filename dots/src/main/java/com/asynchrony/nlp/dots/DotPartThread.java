@@ -17,6 +17,7 @@ public class DotPartThread implements Runnable{
 	private String sentence;
 	private String part;
 	private boolean withProbability = false;
+	private CustomSentimentMapper sentimentMapper = null;
 
 	@SuppressWarnings("unused")
 	private DotPartThread()
@@ -24,16 +25,14 @@ public class DotPartThread implements Runnable{
 		// do not use default constructor
 	}
 	
-	public DotPartThread(DotCreator dotCreator, String sentence, String part)
+	public DotPartThread(DotCreator dotCreator, 
+			CustomSentimentMapper sentimentMapper, 
+			String sentence, String part, boolean withProbability)
 	{
 		this.dotCreator = dotCreator;
 		this.sentence = sentence;
 		this.part = part;
-	}
-
-	public DotPartThread(DotCreator dotCreator, String sentence, String part, boolean withProbability)
-	{
-		this(dotCreator, sentence, part);
+		this.sentimentMapper = sentimentMapper;
 		this.withProbability = withProbability;
 	}
 	
@@ -83,7 +82,7 @@ public class DotPartThread implements Runnable{
 	
 	private void parsePartSentiment(boolean withProbability)
 	{
-		CustomSentimentPipeline sentimenter = new CustomSentimentPipeline(new CustomSentimentMapper(0.1f));
+		CustomSentimentPipeline sentimenter = new CustomSentimentPipeline(sentimentMapper);
 		Sentiment[] sentiments  = {Sentiment.blankSentiment()};
 		try {
 			sentiments = sentimenter.evaluateSentiment(sentence);

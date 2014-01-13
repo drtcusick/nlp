@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.asynchrony.nlp.sentiment.CustomSentimentMapper;
 /*
  REQUIRED LIBRARIES:
 ejml-0.23.jar
@@ -25,6 +27,7 @@ public class DotMainTest {
 
 	private static final String TEST_SENTENCE = "Luke was able to visualize the dark side.s";
 	private DotMain testObject;
+	private CustomSentimentMapper sentimentMapper = new CustomSentimentMapper();
 	
 	@Before
 	public void setUp()
@@ -35,7 +38,7 @@ public class DotMainTest {
 	@Test
 	public void testCreateDotThreadedWithProbability()
 	{
-		String result = testObject.processSentenceThreaded(TEST_SENTENCE, true);
+		String result = testObject.processSentenceThreaded(sentimentMapper, TEST_SENTENCE, true);
 		System.out.println(result);
 	}
 	
@@ -43,27 +46,27 @@ public class DotMainTest {
 	public void testCreateDotThreadedWithProbabilityNeutral()
 	{
 		String neutralSent = "Bob attended the meeting and was attentive.";
-		String result = testObject.processSentenceThreaded(neutralSent, true);
+		String result = testObject.processSentenceThreaded(sentimentMapper, neutralSent, true);
 		System.out.println(result);
 	}
 	
 	@Test
 	public void testMain()
 	{
-		String result = testObject.processSentence(TEST_SENTENCE);
+		String result = testObject.processSentence(sentimentMapper, TEST_SENTENCE);
 		System.out.println(result);
 	}
 	
 	@Test
 	public void testMainWithProb()
 	{
-		String result = testObject.processSentenceWithProbability(TEST_SENTENCE);
+		String result = testObject.processSentenceWithProbability(sentimentMapper, TEST_SENTENCE);
 		System.out.println(result);
 	}
 	
 	@Test
 	public void testGetDot() throws Exception {
-		Dot dot = testObject.getDot(TEST_SENTENCE, false);
+		Dot dot = testObject.getDot(sentimentMapper, TEST_SENTENCE, false);
 		assertEquals("Luke", dot.getSubject());
 		assertEquals("Visualization", dot.getCategory());
 		assertEquals("Positive", dot.getSentiment());

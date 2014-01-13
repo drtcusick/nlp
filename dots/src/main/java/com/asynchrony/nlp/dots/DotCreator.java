@@ -1,5 +1,7 @@
 package com.asynchrony.nlp.dots;
 
+import com.asynchrony.nlp.sentiment.CustomSentimentMapper;
+
 public class DotCreator {
 	
 	public static final String DOT_PART_SUBJECT = "dotPartSubject";
@@ -12,26 +14,24 @@ public class DotCreator {
 	private String sentiment = null;
 	private boolean withProbability = false;
 	private IDotCreatorListener listener;
+	private CustomSentimentMapper sentimentMapper = null;
 	
-	public DotCreator(IDotCreatorListener listener, String sentence)
+	public DotCreator(IDotCreatorListener listener, CustomSentimentMapper sentimentMapper, 
+			String sentence, boolean withProbability)
 	{
 		this.listener = listener;
+		this.sentimentMapper  = sentimentMapper;
 		this.sentence = sentence;
-	}
-	
-	public DotCreator(IDotCreatorListener listener, String sentence, boolean withProbability)
-	{
-		this(listener, sentence);
 		this.withProbability = withProbability;
 	}
 	
 	public void launchDotCreation()
 	{
-		DotPartThread threadSubject = new DotPartThread(this, sentence, DOT_PART_SUBJECT);
+		DotPartThread threadSubject = new DotPartThread(this, null, sentence, DOT_PART_SUBJECT, withProbability);
 		threadSubject.run();
-		DotPartThread threadCategory = new DotPartThread(this, sentence, DOT_PART_CATEGORY, withProbability);
+		DotPartThread threadCategory = new DotPartThread(this, null, sentence, DOT_PART_CATEGORY, withProbability);
 		threadCategory.run();
-		DotPartThread threadSentiment = new DotPartThread(this, sentence, DOT_PART_SENTIMENT, withProbability);
+		DotPartThread threadSentiment = new DotPartThread(this, sentimentMapper, sentence, DOT_PART_SENTIMENT, withProbability);
 		threadSentiment.run();
 	}
 

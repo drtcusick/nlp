@@ -2,7 +2,7 @@ package com.asynchrony.nlp.sentiment;
 
 public class CustomSentimentMapper {
 	
-	private static final double DEFAULT_SKEW_TRESHOLD = 0.1f;
+	private static final double DEFAULT_SKEW_TRESHOLD = 0.03f;
 	private static final double REDUCE_NEUTRAL_WEIGHTS[] = {-2f, -1f, 0f, 1f, 2f};
 	
 	private double skewThreshold = DEFAULT_SKEW_TRESHOLD;
