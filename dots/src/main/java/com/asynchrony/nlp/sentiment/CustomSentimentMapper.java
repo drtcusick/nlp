@@ -10,7 +10,7 @@ public class CustomSentimentMapper {
 	
 	public CustomSentimentMapper()
 	{
-		this.skewThreshold  = DEFAULT_SKEW_TRESHOLD;
+		this.skewThreshold = DEFAULT_SKEW_TRESHOLD;
 	}
 
 	public CustomSentimentMapper(double skewThreshold)

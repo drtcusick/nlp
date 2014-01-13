@@ -121,12 +121,12 @@ public class CustomSentimentPipelineTest {
 	
 	@Test
 	public void testAllTrainingSet() throws Exception {
-		testObject = new CustomSentimentPipeline(new CustomSentimentMapper(0.01f));
+		testObject = new CustomSentimentPipeline(null);
 		String[][] trainingSetPhrases = TrainingSet.TRAINING_SET_PHRASES;
 		StringBuilder b = new StringBuilder();
 		for (String[] sentence : trainingSetPhrases) {
 			Sentiment[] sentiment = testObject.evaluateSentiment(sentence[1]);
-			b.append(sentiment[0].getSentiment() + "  " + sentence[1] + "\n");
+			b.append(sentiment[0].getSentiment() + "|" + sentence[1] + "\n");
 		}
 		System.out.println(b.toString());
 	}

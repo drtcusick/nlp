@@ -1,84 +1,84 @@
-Negative  Dan explained a user-driven approach to visualization and modeling.
-Positive  When visualizing the ideal plan, John was right there.
-Positive  Wes was eager to demonstrate incorporating visualization into a successful routine.
-Positive  Visualization of the required work was daunting until Ryan stepped to the podium.
-Neutral  Edward wisely used to time to teach the team techniques in visualization.
-Positive  Greg is able to visualize the ideal of everything that he would like to achieve.
-Positive  Andi is able to visualize and analyze both basic and creative solutions.
-Positive  Visualization and planning explain the success of this project.
-Positive  Wilbert showed the team how visualization can help bring about remarkable change.
-Positive  James does all the right things; he visualizes and expresses gratitude.
-Positive  Thanks to Dave, the draft determination will protect customers from significant price shocks.
-Negative  In understanding the clients issues, Ben's determination never wavered.
-Positive  The overriding reason we landed the contract was Neil's determination to please the client.
-Negative  Next time you are tired or second guessing yourself, try to channel your determination.
-Positive  The determination in John is incredible, he never gives up.
-Positive  He has the ability to see past the challenge with his determination.
-Neutral  Nathan returned to school with a determination to finish.
-Positive  As usual, Lisa approached the task with determination and energy.
-Neutral  William's determination carried him through the battle.
-Positive  We learned quickly that the most important predictor of success is determination.
-Neutral  Bob's determination would not allow him to leave the office until the task was completed.
-Negative  Through perseverance and determination, Jason ensured the project would be a success.
-Neutral  Joe displayed a fierce determination not to accept defeat.
-Neutral  Lee was thinking strategically when he organized our new digital Kanban board.
-Negative  During our retrospective, the entire team was thinking strategically in moving our standups to the phone system.
-Negative  The team lead, thinking strategically, brought healthy breakfast selections to our early morning meeting.
-Positive  By keeping our technology options open, Travis was thinking strategically.
-Negative  By bringing her lunch to work, Mackenzie was thinking strategically about organizing her day.
-Neutral  Thinking strategically, Nate exchanged team developers on an individual basis.
-Neutral  Ryan was thinking strategically when he took the initiative to learn a new technology.
-Positive  The team created a branching policy by thinking strategically.
-Neutral  Steve was thinking strategically by suggesting the use of natural language processing.
-Negative  The dog was thinking strategically when he buried his extra bone in the back yard.
-Neutral  Robert's decision to include documentation showed that he was thinking strategically.
-Positive  Jason's role is to ensure that the team is thinking strategically.
-Negative  The fate of the project was announced, showing he was thinking strategically.
-Neutral  The presentation included strategically positioned highlights.
-Negative  Lee remained composed as the remote developers became upset.
-Neutral  Sara maintained her composure as the client criticized her presentation.
-Negative  Although the room became heated, Bob remain completely composed.
-Negative  Composure was maintained by all as the bad news was delivered.
-Neutral  June retained her composure after the non politically correct joke.
-Negative  Unsurprisingly, Sherri did not maintain her composure.
-Negative  As the bad news was delivered, everyone except Missi maintained their composure.
-Neutral  Mark was as composed as a church mouse when he lost the game.
-Negative  I was surprised that Sarah did not remain composed after she was fired.
-Negative  Remaining composed was the focus of the motivational speaker.
-Negative  He accepted their problems with composure and she with equanimity.
-Negative  Mike quickly saw the problem with the project
-Neutral  John did a good job at determining that the system was not performing correctly
-Negative  Lacy perceived that there were problems that were not being addressed
-Neutral  Barb was able to see that the machine was broken
-Neutral  William saw that the dependencies were not aligned correctly
-Negative  Dave became aware of the problems that were plaguing the installation
-Negative  Jess realized that the inefficiency was due to the machine design
-Negative  Steve discerned that the team was failing to perform well enough
-Negative  Greg identified that there was no responsible party identified
-Neutral  Geena comprehended that the nature of the problem was machine based
-Neutral  Chevy understood that there were too many steps in the process
-Neutral  Mary came up with a unique solution to the problem
-Neutral  David was thinking out of the box when he solved the issue
-Positive  Susan came up with a creative process to fix the machine
-Positive  Thomas thought of an inventive solution
-Neutral  Harry was really resourceful in his quick response to the work overflow
-Positive  The way that Donald came up with the design was inspired
-Neutral  Holly's decision to use excel to determine the cause of the issue was creative
-Negative  Sammy creatively designed the updated machine
-Neutral  Milton showed great integrity when he turned down the untoward offer
-Neutral  Harry honestly explained the truth of the situation
-Neutral  Martin acted honorably when deailng with the situation
-Positive  Sally's proposal showed honesty in understanding her own weaknesses
-Neutral  Harold was sincere in his description of his beliefs
-Neutral  Mary was virtuous in her attempts to describe the situation
-Positive  Phil acted with integrity
-Neutral  Steve showed integrity when he resigned from the position
-Neutral  Michael failed to motivate his team
-Neutral  David lead his project team successfully
-Neutral  Thomas inspired his group to complete the project on time
-Positive  Shelly spurred on the members to greater success
-Positive  Susan motivated her team well
-Neutral  Brian was unable to motivate the team
-Very negative  The failure of Sally to provide motivation for the effort was why the project failed
-Positive  Lilly was inspiring during the discussions
-Negative  Phil couldn't motivate his project team
+Negative|Dan explained a user-driven approach to visualization and modeling.
+Positive|When visualizing the ideal plan, John was right there.
+Positive|Wes was eager to demonstrate incorporating visualization into a successful routine.
+Positive|Visualization of the required work was daunting until Ryan stepped to the podium.
+Neutral|Edward wisely used to time to teach the team techniques in visualization.
+Positive|Greg is able to visualize the ideal of everything that he would like to achieve.
+Positive|Andi is able to visualize and analyze both basic and creative solutions.
+Positive|Visualization and planning explain the success of this project.
+Positive|Wilbert showed the team how visualization can help bring about remarkable change.
+Positive|James does all the right things; he visualizes and expresses gratitude.
+Positive|Thanks to Dave, the draft determination will protect customers from significant price shocks.
+Negative|In understanding the clients issues, Ben's determination never wavered.
+Positive|The overriding reason we landed the contract was Neil's determination to please the client.
+Negative|Next time you are tired or second guessing yourself, try to channel your determination.
+Positive|The determination in John is incredible, he never gives up.
+Positive|He has the ability to see past the challenge with his determination.
+Neutral|Nathan returned to school with a determination to finish.
+Positive|As usual, Lisa approached the task with determination and energy.
+Neutral|William's determination carried him through the battle.
+Positive|We learned quickly that the most important predictor of success is determination.
+Neutral|Bob's determination would not allow him to leave the office until the task was completed.
+Negative|Through perseverance and determination, Jason ensured the project would be a success.
+Neutral|Joe displayed a fierce determination not to accept defeat.
+Neutral|Lee was thinking strategically when he organized our new digital Kanban board.
+Negative|During our retrospective, the entire team was thinking strategically in moving our standups to the phone system.
+Negative|The team lead, thinking strategically, brought healthy breakfast selections to our early morning meeting.
+Positive|By keeping our technology options open, Travis was thinking strategically.
+Negative|By bringing her lunch to work, Mackenzie was thinking strategically about organizing her day.
+Neutral|Thinking strategically, Nate exchanged team developers on an individual basis.
+Neutral|Ryan was thinking strategically when he took the initiative to learn a new technology.
+Positive|The team created a branching policy by thinking strategically.
+Neutral|Steve was thinking strategically by suggesting the use of natural language processing.
+Negative|The dog was thinking strategically when he buried his extra bone in the back yard.
+Neutral|Robert's decision to include documentation showed that he was thinking strategically.
+Positive|Jason's role is to ensure that the team is thinking strategically.
+Negative|The fate of the project was announced, showing he was thinking strategically.
+Neutral|The presentation included strategically positioned highlights.
+Negative|Lee remained composed as the remote developers became upset.
+Neutral|Sara maintained her composure as the client criticized her presentation.
+Negative|Although the room became heated, Bob remain completely composed.
+Negative|Composure was maintained by all as the bad news was delivered.
+Neutral|June retained her composure after the non politically correct joke.
+Negative|Unsurprisingly, Sherri did not maintain her composure.
+Negative|As the bad news was delivered, everyone except Missi maintained their composure.
+Neutral|Mark was as composed as a church mouse when he lost the game.
+Negative|I was surprised that Sarah did not remain composed after she was fired.
+Negative|Remaining composed was the focus of the motivational speaker.
+Negative|He accepted their problems with composure and she with equanimity.
+Negative|Mike quickly saw the problem with the project
+Neutral|John did a good job at determining that the system was not performing correctly
+Negative|Lacy perceived that there were problems that were not being addressed
+Neutral|Barb was able to see that the machine was broken
+Neutral|William saw that the dependencies were not aligned correctly
+Negative|Dave became aware of the problems that were plaguing the installation
+Negative|Jess realized that the inefficiency was due to the machine design
+Negative|Steve discerned that the team was failing to perform well enough
+Negative|Greg identified that there was no responsible party identified
+Neutral|Geena comprehended that the nature of the problem was machine based
+Neutral|Chevy understood that there were too many steps in the process
+Neutral|Mary came up with a unique solution to the problem
+Neutral|David was thinking out of the box when he solved the issue
+Positive|Susan came up with a creative process to fix the machine
+Positive|Thomas thought of an inventive solution
+Neutral|Harry was really resourceful in his quick response to the work overflow
+Positive|The way that Donald came up with the design was inspired
+Neutral|Holly's decision to use excel to determine the cause of the issue was creative
+Negative|Sammy creatively designed the updated machine
+Neutral|Milton showed great integrity when he turned down the untoward offer
+Neutral|Harry honestly explained the truth of the situation
+Neutral|Martin acted honorably when deailng with the situation
+Positive|Sally's proposal showed honesty in understanding her own weaknesses
+Neutral|Harold was sincere in his description of his beliefs
+Neutral|Mary was virtuous in her attempts to describe the situation
+Positive|Phil acted with integrity
+Neutral|Steve showed integrity when he resigned from the position
+Neutral|Michael failed to motivate his team
+Neutral|David lead his project team successfully
+Neutral|Thomas inspired his group to complete the project on time
+Positive|Shelly spurred on the members to greater success
+Positive|Susan motivated her team well
+Neutral|Brian was unable to motivate the team
+Very negative|The failure of Sally to provide motivation for the effort was why the project failed
+Positive|Lilly was inspiring during the discussions
+Negative|Phil couldn't motivate his project team
