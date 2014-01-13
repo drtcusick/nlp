@@ -31,6 +31,18 @@ public class DotCreatorTest implements IDotCreatorListener{
 	}
 
 	@Test
+	public void testCreateDotWithProbability_NeutralChangedToNegative() {
+		String testSent = "Bob attended the meeting and was attentive.";
+		testObject = new DotCreator(this, testSent, true);
+		this.dot = null;
+		testObject.launchDotCreation();
+		assertNotNull(this.dot);
+		assertEquals("Bob", dot.getSubject());
+		assertEquals("Problems Perceiving Them - 0.309", dot.getCategory());
+		assertTrue(dot.getSentiment().startsWith("Negative"));
+	}
+	
+	@Test
 	public void testCreateDotWithoutProbability() {
 		testObject = new DotCreator(this, TEST_SENTENCE);
 		this.dot = null;

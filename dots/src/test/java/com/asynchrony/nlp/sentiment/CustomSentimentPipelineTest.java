@@ -24,9 +24,11 @@ public class CustomSentimentPipelineTest {
 			"An amazing thing occurred at stand-up this morning, everyone was on time.",
 			"Steve is great", "Francis is great." };
 	private static final String TEST_SENTENCE_NEUTRAL[] = {
-			"Bob attended the meeting and was attentive."
+			
 			 };
+	
 	private static final String TEST_SENTENCE_NEG[] = {
+		"Bob attended the meeting and was attentive.",
 		"Mark spent personal time completing our proposal.",
 		  "A fox jumped over a box while prancing through the woods.",
 		  "Arun is a bad name for testing the software.",
