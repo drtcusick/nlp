@@ -5,6 +5,7 @@ import com.asynchrony.nlp.classifier.ColumnDataClassifierWrap;
 import com.asynchrony.nlp.classifier.Properties;
 import com.asynchrony.nlp.classifier.TrainingSet;
 import com.asynchrony.nlp.parser.SentenceParser;
+import com.asynchrony.nlp.sentiment.CustomSentimentMapper;
 import com.asynchrony.nlp.sentiment.CustomSentimentPipeline;
 import com.asynchrony.nlp.sentiment.Sentiment;
 
@@ -82,7 +83,7 @@ public class DotPartThread implements Runnable{
 	
 	private void parsePartSentiment(boolean withProbability)
 	{
-		CustomSentimentPipeline sentimenter = new CustomSentimentPipeline();
+		CustomSentimentPipeline sentimenter = new CustomSentimentPipeline(new CustomSentimentMapper());
 		Sentiment[] sentiments  = {Sentiment.blankSentiment()};
 		try {
 			sentiments = sentimenter.evaluateSentiment(sentence);

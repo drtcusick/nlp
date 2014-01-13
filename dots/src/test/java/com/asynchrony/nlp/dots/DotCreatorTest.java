@@ -2,6 +2,7 @@ package com.asynchrony.nlp.dots;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,16 +27,14 @@ public class DotCreatorTest implements IDotCreatorListener{
 		assertNotNull(this.dot);
 		assertEquals("Bob", dot.getSubject());
 		assertEquals("Problems Perceiving Them - 0.995", dot.getCategory());
-		assertEquals("Neutral", dot.getSentiment());
+		assertTrue(dot.getSentiment().startsWith("Neutral"));
 	}
 
 	@Test
 	public void testCreateDotWithoutProbability() {
 		testObject = new DotCreator(this, TEST_SENTENCE);
 		this.dot = null;
-		long start = System.currentTimeMillis();
 		testObject.launchDotCreation();
-		System.out.println("TWC time to create = " + (System.currentTimeMillis() - start));
 		assertNotNull(this.dot);
 		assertEquals("Bob", dot.getSubject());
 		assertEquals("Problems Perceiving Them", dot.getCategory());

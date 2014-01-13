@@ -10,6 +10,19 @@ public class Sentiment {
 		this.histogram = histogram;
 	}
 	
+	public Sentiment(String sentiment, double veryNeg, double neg,
+			double neut, double pos, double veryPos) {
+		String doubleFormat = CustomSentimentPipeline.HISTOGRAM_VALUE_FORMAT;
+		String[] histogram = {
+				String.format(doubleFormat, veryNeg),
+				String.format(doubleFormat, neg),
+				String.format(doubleFormat, neut),
+				String.format(doubleFormat, pos),
+				String.format(doubleFormat, veryPos)};
+		this.histogram = histogram;
+		this.sentiment = sentiment;
+	}
+
 	public static Sentiment blankSentiment() {
 		String[] list = {"0.0", "0.0", "0.0", "0.0", "0.0"};
 		return new Sentiment("Unknown", list);

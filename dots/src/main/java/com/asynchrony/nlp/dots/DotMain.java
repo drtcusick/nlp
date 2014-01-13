@@ -5,6 +5,7 @@ import com.asynchrony.nlp.classifier.ColumnDataClassifierWrap;
 import com.asynchrony.nlp.classifier.Properties;
 import com.asynchrony.nlp.classifier.TrainingSet;
 import com.asynchrony.nlp.parser.SentenceParser;
+import com.asynchrony.nlp.sentiment.CustomSentimentMapper;
 import com.asynchrony.nlp.sentiment.CustomSentimentPipeline;
 import com.asynchrony.nlp.sentiment.Sentiment;
 
@@ -54,20 +55,9 @@ public class DotMain implements IDotCreatorListener {
 	
 	protected Dot getDot(String sentence, boolean withProb)
 	{
-		long start = System.currentTimeMillis();
 		String subject = getSubject(sentence);
-		long subjectDuration = System.currentTimeMillis() - start;
-		start = System.currentTimeMillis();
 		String category = getCategory(sentence, withProb);
-		long categoryDuration = System.currentTimeMillis() - start;
-		start = System.currentTimeMillis();
 		String sentiment = getSentiment(sentence);
-		long sentimentDuration = System.currentTimeMillis() - start;
-		
-		
-		System.out.println("TWC subject took " + subjectDuration);
-		System.out.println("TWC category took " + categoryDuration);
-		System.out.println("TWC sentiment took " + sentimentDuration);
 		
 		return new Dot(subject, category, sentiment);
 	}
@@ -96,7 +86,7 @@ public class DotMain implements IDotCreatorListener {
 	protected String getSentiment(String sentence)
 	{
 		String sentiment = "Unknown";
-		CustomSentimentPipeline sentimenter = new CustomSentimentPipeline();
+		CustomSentimentPipeline sentimenter = new CustomSentimentPipeline(new CustomSentimentMapper());
 		Sentiment[] sentiments;
 		try {
 			sentiments = sentimenter.evaluateSentiment(sentence);

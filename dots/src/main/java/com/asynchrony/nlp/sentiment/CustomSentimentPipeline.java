@@ -23,6 +23,7 @@ import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.util.CoreMap;
 
 public class CustomSentimentPipeline {
+	public static final String HISTOGRAM_VALUE_FORMAT = "%6.3f ";
 	public static final String SENTIMENT_VERY_POSITIVE = "Very positive";
 	public static final String SENTIMENT_POSITIVE = "Positive";
 	public static final String SENTIMENT_NEUTRAL = "Neutral";
@@ -32,11 +33,18 @@ public class CustomSentimentPipeline {
 		SENTIMENT_NEUTRAL, SENTIMENT_POSITIVE, SENTIMENT_VERY_POSITIVE};
 
 	private static final NumberFormat NF = new DecimalFormat("0.0000");
+	private CustomSentimentMapper customMapper;
 
 	static enum Output {
 		PENNTREES, VECTORS, ROOT;
 	}
 
+	
+	public CustomSentimentPipeline(CustomSentimentMapper customMapper)
+	{
+		this.customMapper = customMapper;
+	}
+	
 	public Sentiment[] evaluateSentiment(String sentenceToEvaluate)
 			throws Exception {
 		Properties props = new Properties();
@@ -54,18 +62,17 @@ public class CustomSentimentPipeline {
 					.get(SentimentCoreAnnotations.AnnotatedTree.class);
 			String sentiment = sentimentString(RNNCoreAnnotations.getPredictedClass(tree));
 			SimpleMatrix mat = RNNCoreAnnotations.getPredictions(tree);
-			results.add(createSentimentObject(sentiment, mat));
+			Sentiment rawSentiment = createSentimentObject(sentiment, mat);
+			results.add(customMapper.adjustRawSentiment(rawSentiment));
 		}
 		return results.toArray(new Sentiment[results.size()]);
 	}
 	
 	public Sentiment createSentimentObject(String sentiment, SimpleMatrix mat) {
-		String s = "%6.3f ";
 		DenseMatrix64F matrix64f = mat.getMatrix();
-		StringBuilder b = new StringBuilder();
 		ArrayList<String> groupProb = new ArrayList<>();
 		for (int row = 0; row < matrix64f.numRows; row++) {
-				groupProb.add(String.format(s, new Object[] { Double
+				groupProb.add(String.format(HISTOGRAM_VALUE_FORMAT, new Object[] { Double
 								.valueOf(matrix64f.get(row, 0)) }));
 		}
 		String[] histogram = groupProb.toArray(new String[groupProb.size()]);

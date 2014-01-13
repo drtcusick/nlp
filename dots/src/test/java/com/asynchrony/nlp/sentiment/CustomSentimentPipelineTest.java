@@ -46,10 +46,11 @@ public class CustomSentimentPipelineTest {
 			"I don't know half of you half as well as I should like, and I like less than half of you half as well as you deserve" };
 
 	private CustomSentimentPipeline testObject;
+	private CustomSentimentMapper customSentimentMapper = new CustomSentimentMapper();
 
 	@Before
 	public void setUp() {
-		testObject = new CustomSentimentPipeline();
+		testObject = new CustomSentimentPipeline(customSentimentMapper);
 	}
 	
 	@Test

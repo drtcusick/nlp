@@ -40,6 +40,14 @@ public class DotMainTest {
 	}
 	
 	@Test
+	public void testCreateDotThreadedWithProbabilityNeutral()
+	{
+		String neutralSent = "Bob attended the meeting and was attentive.";
+		String result = testObject.processSentenceThreaded(neutralSent, true);
+		System.out.println(result);
+	}
+	
+	@Test
 	public void testMain()
 	{
 		String result = testObject.processSentence(TEST_SENTENCE);
@@ -56,8 +64,8 @@ public class DotMainTest {
 	@Test
 	public void testGetDot() throws Exception {
 		Dot dot = testObject.getDot(TEST_SENTENCE, false);
-		assertEquals("Bob", dot.getSubject());
-		assertEquals("Problems Perceiving Them", dot.getCategory());
-		assertEquals("Neutral", dot.getSentiment());
+		assertEquals("Luke", dot.getSubject());
+		assertEquals("Visualization", dot.getCategory());
+		assertEquals("Positive", dot.getSentiment());
 	}
 }
