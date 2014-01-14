@@ -36,4 +36,24 @@ public class Sentiment {
 		return sentiment;
 	}
 	
+	public String getHistogramString()
+	{
+		StringBuilder b = new StringBuilder();
+		int i = 0;
+		for (String prob : histogram) {
+			b.append(" ");
+			if (sentiment.equals(CustomSentimentPipeline.SENTIMENT_NAMES[i]))
+			{
+				b.append("[");
+			}
+			b.append(prob.trim());
+			if (sentiment.equals(CustomSentimentPipeline.SENTIMENT_NAMES[i++]))
+			{
+				b.append("]");
+			}
+		}
+		
+		return b.toString().trim();
+	}
+	
 }

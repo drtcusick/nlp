@@ -100,20 +100,8 @@ public class DotPartThread implements Runnable{
 		
 		if (withProbability)
 		{
-			b.append(" -");
-			int i = 0;
-			for (String prob : sentiment.getHistogram()) {
-				b.append(" ");
-				if (sentimentStr.equals(CustomSentimentPipeline.SENTIMENT_NAMES[i]))
-				{
-					b.append("[");
-				}
-				b.append(prob.trim());
-				if (sentimentStr.equals(CustomSentimentPipeline.SENTIMENT_NAMES[i++]))
-				{
-					b.append("]");
-				}
-			}
+			b.append(" - ");
+			b.append(sentiment.getHistogramString());
 		}
 		return b.toString();
 	}

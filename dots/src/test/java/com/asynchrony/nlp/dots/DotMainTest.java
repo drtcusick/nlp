@@ -25,7 +25,7 @@ stanford-parser-3.3.0-sources.jar
 */
 public class DotMainTest {
 
-	private static final String TEST_SENTENCE = "Luke was able to visualize the dark side.s";
+	private static final String TEST_SENTENCE = "Luke was able to visualize the dark side.";
 	private DotMain testObject;
 	private CustomSentimentMapper sentimentMapper = new CustomSentimentMapper();
 	
