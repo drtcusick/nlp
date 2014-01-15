@@ -32,6 +32,20 @@ public class TrainingSetTest {
 		System.out.println("\n");
 		System.out.println("------------ ALL SENTENCES IN TRAINING SET RESULTS --------- ");
 	}
+	
+	@Test
+	public void testTWCdeleteThisWhenDoneMakingTrainingSet() throws Exception {
+		int i = 0;
+		StringBuilder b = new StringBuilder();
+		StringBuilder c = new StringBuilder();
+		for (String[] item : TrainingSet.TRAINING_SET_PHRASES) {
+			c.append(i).append(",").append("13,13,13\n");
+			b.append(i++).append(",").append(item[1]).append("\n");
+		}
+		System.out.println(b.toString());
+		System.out.println("\n");
+		System.out.println(c.toString());
+	}
 
 	private String testSingleSentence(int testNum, String[][] trainingSetPhrases) {
 		String[] testLine = null;

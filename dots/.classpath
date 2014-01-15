@@ -15,6 +15,8 @@
 	<classpathentry kind="lib" path="lib/stanford-parser.jar"/>
 	<classpathentry kind="lib" path="lib/org.hamcrest.core_1.1.0.v20090501071000.jar"/>
 	<classpathentry kind="lib" path="lib/stanford-corenlp-3.3.1-models.jar"/>
-	<classpathentry kind="lib" path="lib/stanford-corenlp-3.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/joda-time-2.3.jar"/>
+	<classpathentry kind="lib" path="lib/xom-1.2.10.jar"/>
+	<classpathentry kind="lib" path="lib/jollyday-0.4.7.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
