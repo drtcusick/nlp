@@ -18,17 +18,26 @@ public class SQLiteTest {
 	{
 		testObject = new SQLite();
 	}
+	
+//	@Test
+//	public void testGetPhraseFromDb() throws Exception {
+//		ArrayList<Phrase> list = testObject.getPhrasesFromDb();
+//		for (Phrase phrase : list) {
+//			System.out.println("TWC " + phrase.asString());
+//		}
+//	}
 
-	@Test
-	public void testInsertTestPhrasesIntoDb() {
-		String[][] set = TrainingSet.TRAINING_SET_PHRASES;
-		ArrayList<Phrase> phrases = new ArrayList<Phrase>();
-		for (String[] line : set) {
-			int catId = Integer.parseInt(line[0]);
-			Phrase phrase = new Phrase(-1, line[1], catId , 13f);
-			phrases.add(phrase);
-		}
-		testObject.insertPhrases(phrases);
-	}
+//	@Test
+//	public void testInsertTestPhrasesIntoDb() {
+//		String[][] set = TrainingSet.TRAINING_SET_PHRASES;
+//		ArrayList<Phrase> phrases = new ArrayList<Phrase>();
+//		for (String[] line : set) {
+//			int catId = Integer.parseInt(line[0]);
+//			double sentiment = Double.parseDouble(line[1]);
+//			Phrase phrase = new Phrase(-1, line[2], catId , sentiment);
+//			phrases.add(phrase);
+//		}
+//		testObject.insertPhrases(phrases);
+//	}
 
 }

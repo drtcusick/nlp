@@ -36,5 +36,11 @@ public class Phrase {
 	public void setSentiment(double sentiment) {
 		this.sentiment = sentiment;
 	}
+	public String asString() {
+		StringBuilder b = new StringBuilder();
+		b.append(id).append(" ").append(categoryId).append(" ");
+		b.append(sentiment).append(" ").append(sentence);
+		return b.toString();
+	}
 	
 }

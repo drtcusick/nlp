@@ -40,7 +40,7 @@ public class TrainingSetTest {
 		StringBuilder c = new StringBuilder();
 		for (String[] item : TrainingSet.TRAINING_SET_PHRASES) {
 			c.append(i).append(",").append("13,13,13\n");
-			b.append(i++).append(",").append(item[1]).append("\n");
+			b.append(i++).append(",").append(item[2]).append("\n");
 		}
 		System.out.println(b.toString());
 		System.out.println("\n");

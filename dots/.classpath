@@ -20,5 +20,6 @@
 	<classpathentry kind="lib" path="lib/xom-1.2.10.jar"/>
 	<classpathentry kind="lib" path="lib/jollyday-0.4.7.jar"/>
 	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.7.2.jar"/>
+	<classpathentry kind="lib" path="lib/mockito-all-1.9.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

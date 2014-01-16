@@ -81,8 +81,8 @@ public class SentenceParserTest {
 		StringBuilder b = new StringBuilder();
 		String[][] phrases = TrainingSet.TRAINING_SET_PHRASES;
 		for (String[] phrase : phrases) {
-			String subject = testObject.extractSubject(phrase[1]);
-			b.append(subject + "  " + phrase[1]).append("\n");
+			String subject = testObject.extractSubject(phrase[2]);
+			b.append(subject + "  " + phrase[2]).append("\n");
 		}
 		System.out.println(b.toString());
 	}

@@ -607,9 +607,9 @@ public class ColumnDataClassifierExt extends ColumnDataClassifier {
 		
 		int lineNo = 0;
 		for (String[] line : lines) {
-			if (line.length == 2)
+			if (line.length > 2)
 			{
-				String lineTab = line[0] + "\t" + line[1];
+				String lineTab = line[0] + "\t" + line[2];
 				lineNo++;
 				Datum d = makeDatumFromLine(lineTab, lineNo);
 				if (d != null)
