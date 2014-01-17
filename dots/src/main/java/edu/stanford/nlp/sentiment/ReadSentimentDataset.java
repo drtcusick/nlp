@@ -95,21 +95,20 @@ public class ReadSentimentDataset {
       if (phraseId == null) {
         phraseId = phraseIds.get(words);
       }
-      if (phraseId == null) {
-        throw new RuntimeException("Could not find phrase id for phrase " + sentence);
-      }
-      // TODO: should we make this an option?  Perhaps we want cases
-      // where the trees have the phrase id and not their class
-      Double score = sentimentScores.get(phraseId);
-      if (score == null) {
-        throw new RuntimeException("Could not find sentiment score for phrase id " + phraseId);
-      }
-      // TODO: make this a numClasses option
-      int classLabel = Math.round((float) Math.floor(score * 5.0));
-      if (classLabel > 4) {
-        classLabel = 4;
-      }
+      if (phraseId != null) {
+	      // TODO: should we make this an option?  Perhaps we want cases
+	      // where the trees have the phrase id and not their class
+	      Double score = sentimentScores.get(phraseId);
+	      if (score == null) {
+	        throw new RuntimeException("Could not find sentiment score for phrase id " + phraseId);
+	      }
+	      // TODO: make this a numClasses option
+	      int classLabel = Math.round((float) Math.floor(score * 5.0));
+	      if (classLabel > 4) {
+	        classLabel = 4;
+	      }
       subtrees[i].label().setValue(Integer.toString(classLabel));
+      }
     }
 
     for (int i = 0; i < sentence.size(); ++i) {

@@ -1,4 +1,4 @@
-package com.asynchrony.nlp.sentiment;
+package com.asynchrony.nlp.train;
 
 import java.util.List;
 import java.util.Map;
@@ -39,21 +39,19 @@ public class SentimentTrainingWrapper {
 		 * -tokens stanfordSentimentTreebank/SOStr.txt 
 		 * -parse stanfordSentimentTreebank/STree.txt 
 		 * -split stanfordSentimentTreebank/datasetSplit.txt 
-		 * -train train.txt -dev dev.txt -test test.txt
-The arguments are as follows:
--dictionary, -sentiment, -tokens, -parse, -split Path to the corresponding files from the dataset
--train, -dev, -test Paths for saving the corresponding output files */
-		ReadSentimentDataset reader = new ReadSentimentDataset();
+		 * -train train.txt -dev dev.txt -test test.txt */
 		
-		List<Integer> parentPointers;
-		List<String> sentence;
-		Map<List<String>,Integer> phraseIds;
-		Map<Integer,Double> sentimentScores;
-		PTBEscapingProcessor escaper;
-		
-	 	
-		//reader.convertTree(parentPointers, sentence, phraseIds, sentimentScores, escaper);
-		
+		String DATA_PATH = "C:\\tmp\\nlp-treebank\\";
+		String OUT_PATH = "C:\\tmp\\nlp-train\\";
+		String[] args = {"-dictionary", DATA_PATH + "dictionary.txt",
+					"-sentiment", DATA_PATH + "sentiment_labels.txt",
+					"-tokens", DATA_PATH + "SOStr.txt",
+					"-parse", DATA_PATH + "STree.txt",
+					"-split", DATA_PATH + "datasetSplit.txt",
+					"-train", OUT_PATH + "train.txt",
+					"-dev", OUT_PATH + "dev.txt",
+					"-test", OUT_PATH + "test.txt"};
+		ReadSentimentDataset.main(args);
 		return true;
 	}
 }
